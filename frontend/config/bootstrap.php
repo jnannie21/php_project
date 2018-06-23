@@ -1,5 +1,23 @@
 <?php
 
+//namespace tt\gg;
+//
+//class Yy {
+//
+//    public function Uu() {
+//        $Var = 666;
+//        echo $Var;
+//    }
+//
+//}
+//
+//$var = new YY();
+//$var->uu();
+//die;
+
+
+
+
 //use yii\base\Security;
 //
 //$security = new Security();
