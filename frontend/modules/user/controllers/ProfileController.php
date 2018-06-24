@@ -8,8 +8,8 @@ use frontend\models\User;
 
 class ProfileController extends Controller {
 
-    public function actionView($id) {
-        $user = User::findIdentity($id);
+    public function actionView($username) {
+        $user = User::findByUsername($username);
         return $this->render('view', [
                     'user' => $user,
         ]);    }
