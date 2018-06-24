@@ -1,5 +1,8 @@
 <?php
-
+//include "1.php";
+//echo $var;
+//
+//die;
 //namespace tt\gg;
 //
 //class Yy {

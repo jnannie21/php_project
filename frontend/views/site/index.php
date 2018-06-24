@@ -1,6 +1,8 @@
 <?php
-
 /* @var $this yii\web\View */
+/* @var array $users common\models\User */
+
+use yii\helpers\Url;
 
 $this->title = 'My Yii Application';
 ?>
@@ -16,11 +18,13 @@ $this->title = 'My Yii Application';
 
     <div class="body-content">
 
-        <?php foreach($users as $user): ?>
-        <?php echo $user->username." => "; ?>
-        <?php echo $user->email." => "; ?>
-        <?php echo $user->status; ?>
-        <hr>
+        <?php foreach ($users as $user): ?>
+            <a href = "<?php echo Url::to(['/user/profile/view', 'id' => $user->id]); ?>">
+                <?php echo $user->username . " => "; ?>
+                <?php echo $user->email . " => "; ?>
+                <?php echo $user->status; ?>
+            </a>
+            <hr>
         <?php endforeach; ?>
 
     </div>
