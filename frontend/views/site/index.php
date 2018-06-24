@@ -1,6 +1,6 @@
 <?php
 /* @var $this yii\web\View */
-/* @var array $users common\models\User */
+/* @var array $users frontend\models\User */
 
 use yii\helpers\Url;
 

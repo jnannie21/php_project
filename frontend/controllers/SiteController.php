@@ -3,7 +3,7 @@
 namespace frontend\controllers;
 
 use yii\web\Controller;
-use common\models\User;
+use frontend\models\User;
 
 /**
  * Site controller
