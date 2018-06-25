@@ -1,4 +1,7 @@
 <?php
+
+//false && var_dump("fjkals");
+//die;
 //include "1.php";
 //echo $var;
 //

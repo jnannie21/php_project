@@ -20,6 +20,7 @@ $this->title = 'My Yii Application';
 
         <?php foreach ($users as $user): ?>
             <a href = "<?php echo Url::to(['/user/profile/view', 'username' => $user->username]); ?>">
+                <?php echo $user->id . " => "; ?>
                 <?php echo $user->username . " => "; ?>
                 <?php echo $user->email . " => "; ?>
                 <?php echo $user->status; ?>
