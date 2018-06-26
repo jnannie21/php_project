@@ -1,5 +1,21 @@
 <?php
 
+//class rt{
+//    public $one = [666];
+//}
+//
+//$access = 'one';
+// 
+//$obj = new rt();
+//
+//$obj->$access['site'] = 777;
+//
+//echo $obj->one[0];
+//
+//die;
+//echo 'jdkf \n "dfdf"';
+//
+//die;
 //false && var_dump("fjkals");
 //die;
 //include "1.php";

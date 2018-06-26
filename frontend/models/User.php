@@ -183,5 +183,32 @@ class User extends ActiveRecord implements IdentityInterface {
     public function removePasswordResetToken() {
         $this->password_reset_token = null;
     }
+    
+    /**
+     * Subscribe current user to given user
+     * @param \frontend\models\User $user
+     */
+    public function followUser(User $user){
+        
+        /* @var $redis \yii\redis\Connection */
+        $redis = Yii::$app->redis;
+        $redis->sadd("user:{$this->getId()}:subscriptions", $user->getId());
+        $redis->sadd("user:{$user->getId()}:followers", $this->getId());
+    }
+    
+    public function getSubscriptions(){
+        /* @var $redis \yii\redis\Connection */
+        $redis = Yii::$app->redis;
+        $key = "user:{$this->getId()}:subscriptions";
+        return $redis->smembers($key);
+    }
+
+
+    public function getFollowers(){
+        /* @var $redis \yii\redis\Connection */
+        $redis = Yii::$app->redis;
+        $key = "user:{$this->getId()}:followers";
+        return $redis->smembers($key);
+    }
 
 }
