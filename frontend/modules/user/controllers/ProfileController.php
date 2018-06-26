@@ -9,6 +9,11 @@ use yii\web\NotFoundHttpException;
 
 class ProfileController extends Controller {
 
+    /**
+     * User profile
+     * 
+     * @param string $username
+     */
     public function actionView($username) {
         $user = User::findByUsername($username);
         return $this->render('view', [
@@ -16,24 +21,58 @@ class ProfileController extends Controller {
         ]);
     }
 
+    /**
+     * Subscribe current user to user with given ID
+     * 
+     * @param string|int $id given ID
+     * @return Response
+     */
     public function actionSubscribe($id) {
-        if (Yii::$app->user->isGuest) {
-            return $this->redirect(['/user/default/login']);
-        }
+        
+        $user = $this->findUserById($id);
 
         /* @var $currentUser User */
         $currentUser = Yii::$app->user->identity;
-        if (!$user = User::findIdentity($id)) {
-            throw new NotFoundHttpException();
-        }
 
         $currentUser->followUser($user);
 
         return $this->redirect(['/user/profile/view', 'username' => $user->username]);
     }
 
-    public function actionUnsubscribe() {
-        
+    /**
+     * Unsubscribe current user from user with given ID
+     * 
+     * @param string|int $id given ID
+     * @return Response
+     */
+    public function actionUnsubscribe($id) {
+
+        $user = $this->findUserById($id);
+
+        /* @var $currentUser User */
+        $currentUser = Yii::$app->user->identity;
+
+        $currentUser->unfollowUser($user);
+
+        return $this->redirect(['/user/profile/view', 'username' => $user->username]);
+    }
+
+    /**
+     * Finds user by ID
+     * 
+     * @param string|int $id given ID
+     * @return User
+     * @throws NotFoundHttpException
+     */
+    public function findUserById($id) {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(['/user/default/login']);
+        }
+
+        if ($user = User::findIdentity($id)) {
+            return $user;
+        }
+        throw new NotFoundHttpException();
     }
 
 //    public function actionGenerate() {
