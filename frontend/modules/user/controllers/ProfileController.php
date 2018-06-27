@@ -15,9 +15,12 @@ class ProfileController extends Controller {
      * @param string $username
      */
     public function actionView($username) {
+        
         $user = User::findByUsername($username);
+        
         return $this->render('view', [
                     'user' => $user,
+                    'currentUser' => Yii::$app->user->identity,
         ]);
     }
 

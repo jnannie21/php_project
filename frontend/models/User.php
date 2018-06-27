@@ -213,15 +213,57 @@ class User extends ActiveRecord implements IdentityInterface {
         $redis = Yii::$app->redis;
         $key = "user:{$this->getId()}:subscriptions";
         $ids = $redis->smembers($key);
-        return User::find()->select('id, username, email')->where(['id' => $ids])->orderBy('username')->asArray()->all();
+        return User::find()->select('id, username, email')->where(['id' => $ids, 'status' => self::STATUS_ACTIVE])->orderBy('username')->asArray()->all();
     }
 
+    /**
+     * 
+     * @return array
+     */
     public function getFollowers() {
         /* @var $redis \yii\redis\Connection */
         $redis = Yii::$app->redis;
         $key = "user:{$this->getId()}:followers";
         $ids = $redis->smembers($key);
-        return User::find()->select('id, username, email')->where(['id' => $ids])->orderBy('username')->asArray()->all();
+        return User::find()->select('id, username, email')->where(['id' => $ids, 'status' => self::STATUS_ACTIVE])->orderBy('username')->asArray()->all();
+    }
+
+    /**
+     * 
+     * @param \frontend\models\User $user
+     * @return array
+     */
+    public function getMutualSubscriptionsTo(User $user) {
+        // Current user subscriptions
+        $key1 = "user:{$this->getId()}:subscriptions";
+        // Given user followers
+        $key2 = "user:{$user->getId()}:subscriptions";
+        
+        /* @var $redis \yii\redis\Connection */
+        $redis = Yii::$app->redis;
+        
+        $ids = $redis->sinter($key1, $key2);
+        return User::find()->select('id, username, email')->where(['id' => $ids, 'status' => self::STATUS_ACTIVE])->orderBy('username')->asArray()->all();
+    }
+
+    /**
+     * 
+     * @return int
+     */
+    public function countSubscriptions() {
+        /* @var $redis \yii\redis\Connection */
+        $redis = Yii::$app->redis;
+        return $redis->scard("user:{$this->getId()}:subscriptions");
+    }
+
+    /**
+     * 
+     * @return int
+     */
+    public function countFollowers() {
+        /* @var $redis \yii\redis\Connection */
+        $redis = Yii::$app->redis;
+        return $redis->scard("user:{$this->getId()}:followers");
     }
 
 }

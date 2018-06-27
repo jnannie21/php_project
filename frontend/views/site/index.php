@@ -7,13 +7,24 @@ use yii\helpers\Url;
 $this->title = 'My Yii Application';
 ?>
 <div class="site-index">
-
-    <div class="jumbotron">
+    
+    <div class="text-center">
         <h1>Congratulations!</h1>
 
         <p class="lead">You have successfully created your Yii-powered application.</p>
 
-        <p><a class="btn btn-lg btn-success" href="http://www.yiiframework.com">Get started with Yii</a></p>
+        <p>
+            <a class="btn btn-lg btn-default" href="
+            <?php
+            if (!Yii::$app->user->isGuest) {
+                echo Url::to(['/user/profile/view', 'username' => Yii::$app->user->identity->username]);
+            } else {
+                echo Url::home();
+            }
+            ?>">
+                Profile
+            </a>
+        </p>
     </div>
 
     <div class="body-content">
