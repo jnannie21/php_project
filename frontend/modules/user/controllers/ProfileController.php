@@ -32,6 +32,10 @@ class ProfileController extends Controller {
      */
     public function actionSubscribe($id) {
         
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(['/user/default/login']);
+        }
+              
         $user = $this->findUserById($id);
 
         /* @var $currentUser User */
@@ -49,7 +53,11 @@ class ProfileController extends Controller {
      * @return Response
      */
     public function actionUnsubscribe($id) {
-
+        
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(['/user/default/login']);
+        }
+        
         $user = $this->findUserById($id);
 
         /* @var $currentUser User */
@@ -68,9 +76,6 @@ class ProfileController extends Controller {
      * @throws NotFoundHttpException
      */
     public function findUserById($id) {
-        if (Yii::$app->user->isGuest) {
-            return $this->redirect(['/user/default/login']);
-        }
 
         if ($user = User::findIdentity($id)) {
             return $user;
