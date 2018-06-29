@@ -49,6 +49,9 @@ return [
                 'profile/<username\w+>' => 'user/profile/view',
             ],
         ],
+        'storage' => [
+            'class' => 'frontend\components\Storage',
+        ],
     ],
     'params' => $params,
 ];

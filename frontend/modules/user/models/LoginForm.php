@@ -27,9 +27,9 @@ class LoginForm extends Model
             // email and password are both required
             [['email', 'password'], 'required'],
             // rememberMe must be a boolean value
-            ['rememberMe', 'boolean'],
+            [['rememberMe'], 'boolean'],
             // password is validated by validatePassword()
-            ['password', 'validatePassword'],
+            [['password'], 'validatePassword'],
         ];
     }
 

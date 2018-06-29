@@ -1,18 +1,24 @@
 <?php
 
-//class rt{
-//    public $one = [666];
+//function t1(){
+//    return 123;
 //}
 //
-//$access = 'one';
+//class rt{
+//    static $one = 666+666;
+//}
+//
 // 
 //$obj = new rt();
 //
-//$obj->$access['site'] = 777;
-//
-//echo $obj->one[0];
+//echo t1();
+//echo rt::$one;
 //
 //die;
+
+
+
+
 //echo 'jdkf \n "dfdf"';
 //
 //die;
