@@ -8,20 +8,33 @@ use frontend\models\User;
 use yii\web\NotFoundHttpException;
 use frontend\modules\user\models\forms\PictureForm;
 use yii\web\UploadedFile;
+use yii\web\Response;
+use yii\helpers\Url;
 
 class ProfileController extends Controller {
 
     /**
      * User profile
      * 
-     * @param string $username
+     * @param string $username Username or user ID
      */
     public function actionView($username) {
+
+        if (!$user = User::findByUsername($username)){
+            $user = User::findIdentity($username);
+        }
         
-        $user = User::findByUsername($username);
+        if (!$user){
+            throw new NotFoundHttpException();
+        }
+        
+//        if (Yii::$app->user->isGuest){
+//            
+//            Yii::$app->user->setReturnUrl(Url::to(['/user/profile/view', 'username' => $username ]));
+//        }
         
         $modelPicture = new PictureForm();
-        
+
         return $this->render('view', [
                     'user' => $user,
                     'currentUser' => Yii::$app->user->identity,
@@ -36,11 +49,11 @@ class ProfileController extends Controller {
      * @return Response
      */
     public function actionSubscribe($id) {
-        
+
         if (Yii::$app->user->isGuest) {
             return $this->redirect(['/user/default/login']);
         }
-              
+
         $user = $this->findUserById($id);
 
         /* @var $currentUser User */
@@ -58,11 +71,11 @@ class ProfileController extends Controller {
      * @return Response
      */
     public function actionUnsubscribe($id) {
-        
+
         if (Yii::$app->user->isGuest) {
             return $this->redirect(['/user/default/login']);
         }
-        
+
         $user = $this->findUserById($id);
 
         /* @var $currentUser User */
@@ -87,24 +100,29 @@ class ProfileController extends Controller {
         }
         throw new NotFoundHttpException();
     }
-    
+
     /**
      * Profile image upload via ajax request
      */
-    public function actionUploadPicture(){
+    public function actionUploadPicture() {
+        Yii::$app->response->format = Response::FORMAT_JSON;
+
         $model = new PictureForm();
         $model->picture = UploadedFile::getInstance($model, 'picture');
-        
+
         if ($model->validate()) {
             $user = Yii::$app->user->identity;
             $user->picture = Yii::$app->storage->saveUploadedFile($model->picture);
-            
-            if ($user->save(false, ['picture'])){
-                print_r($user->attributes); die;
+
+            if ($user->save(false, ['picture'])) {
+                return [
+                    'success' => true,
+                    'pictureUri' => Yii::$app->storage->getFile($user->picture),
+                ];
             }
         }
         
-        print_r($model->getErrors());
+        return ['success' => false, 'errors' => $model->getErrors()];
     }
 
 //    public function actionGenerate() {
