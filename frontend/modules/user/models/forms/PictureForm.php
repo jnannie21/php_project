@@ -17,7 +17,6 @@ class PictureForm extends Model {
      */
     public function rules() {
         return [
-            // email and password are both required
             [['picture'], 'file',
                 'extensions' => ['jpg'],
                 'checkExtensionByMimeType' => true,

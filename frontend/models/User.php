@@ -266,4 +266,14 @@ class User extends ActiveRecord implements IdentityInterface {
         return $redis->scard("user:{$this->getId()}:followers");
     }
 
+    /**
+     * Get profile picture
+     * 
+     * @return string picture path
+     */
+    public function getPicture(){
+        if ($this->picture){
+            return Yii::$app->storage->getFile($this->picture);
+        }
+    }
 }

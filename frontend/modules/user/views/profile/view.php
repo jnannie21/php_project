@@ -16,7 +16,8 @@ use dosamigos\fileupload\FileUpload;
 <p><?php echo HtmlPurifier::process($user->about); ?></p>
 <hr>
 
-
+<img src="<?php if($currentUser) echo $currentUser->getPicture(); ?>" height="200"/>
+    
 <?= FileUpload::widget([
     'model' => $modelPicture,
     'attribute' => 'picture',
@@ -47,6 +48,7 @@ use dosamigos\fileupload\FileUpload;
 
 
 <h5>Your mutual subscriptions with <?php echo Html::encode($user->username); ?>: </h5>
+
 <?php if($currentUser): ?>
 <div class="row">
     <?php foreach ($currentUser->getMutualSubscriptionsTo($user) as $item): ?>
