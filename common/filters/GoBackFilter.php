@@ -4,7 +4,6 @@ namespace common\filters;
 
 use Yii;
 use yii\base\ActionFilter;
-use yii\web\User;
 use yii\helpers\Url;
 
 class GoBackFilter extends ActionFilter {
@@ -30,8 +29,6 @@ class GoBackFilter extends ActionFilter {
 
         if (in_array($action->id, $this->actions)) {
             Yii::$app->user->setReturnUrl(Yii::$app->request->referrer);
-        } elseif (isset($_SESSION[$returnUrlParam])) {
-            unset($_SESSION[$returnUrlParam]);
         }
 
         return true;

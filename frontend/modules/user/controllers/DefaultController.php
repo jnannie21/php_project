@@ -48,7 +48,7 @@ class DefaultController extends Controller {
             ],
             'goback' => [
                 'class' => GoBackFilter::class,
-                'actions' => ['signup', 'login', 'logout'],
+                'actions' => ['signup', 'login', 'logout', 'request-password-reset'],
             ],
         ];
     }
@@ -101,7 +101,7 @@ class DefaultController extends Controller {
         if ($model->load(Yii::$app->request->post())) {
             if ($user = $model->signup()) {
                 if (Yii::$app->getUser()->login($user)) {
-                    return $this->goHome();
+                    return $this->goBack();
                 }
             }
         }
@@ -122,7 +122,7 @@ class DefaultController extends Controller {
             if ($model->sendEmail()) {
                 Yii::$app->session->setFlash('success', 'Check your email for further instructions.');
 
-                return $this->goHome();
+                return $this->goBack();
             } else {
                 Yii::$app->session->setFlash('error', 'Sorry, we are unable to reset password for the provided email address.');
             }
