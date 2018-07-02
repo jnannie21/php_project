@@ -12,7 +12,7 @@ use yii\web\Response;
 use yii\helpers\Url;
 
 class ProfileController extends Controller {
-
+    
     /**
      * User profile
      * 
@@ -27,11 +27,6 @@ class ProfileController extends Controller {
         if (!$user){
             throw new NotFoundHttpException();
         }
-        
-//        if (Yii::$app->user->isGuest){
-//            
-//            Yii::$app->user->setReturnUrl(Url::to(['/user/profile/view', 'username' => $username ]));
-//        }
         
         $modelPicture = new PictureForm();
 

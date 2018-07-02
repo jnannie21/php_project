@@ -1,18 +1,19 @@
 <?php
 
 //function t1(){
-//    return 123;
+//    echo 123;
 //}
 //
 //class rt{
 //    static $one = 666+666;
+//    public $tt = 987;
 //}
 //
 // 
 //$obj = new rt();
-//
-//echo t1();
-//echo rt::$one;
+//call_user_func('t1', $obj);
+////echo t1($obj);
+////echo rt::$one;
 //
 //die;
 

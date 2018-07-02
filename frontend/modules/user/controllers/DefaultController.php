@@ -12,6 +12,7 @@ use frontend\modules\user\models\LoginForm;
 use frontend\modules\user\models\PasswordResetRequestForm;
 use frontend\modules\user\models\ResetPasswordForm;
 use frontend\modules\user\models\SignupForm;
+use common\filters\GoBackFilter;
 
 /**
  * Default controller for the `user` module
@@ -45,6 +46,10 @@ class DefaultController extends Controller {
                     'logout' => ['post'],
                 ],
             ],
+            'goback' => [
+                'class' => GoBackFilter::class,
+                'actions' => ['signup', 'login', 'logout'],
+            ],
         ];
     }
 
@@ -76,10 +81,14 @@ class DefaultController extends Controller {
      *
      * @return mixed
      */
-    public function actionLogout() {
+    public function actionLogout() {       
+        $returnUrl = $_SESSION[Yii::$app->user->returnUrlParam];
+        
         Yii::$app->user->logout();
-
-        return $this->goHome();
+        
+        Yii::$app->user->setReturnUrl($returnUrl);
+                
+        return $this->goBack();
     }
 
     /**
