@@ -1,5 +1,60 @@
 <?php
 
+//class Model {
+//
+//    static $table = 'table';
+//
+//    static function getTable() {
+//        return static::$table;
+//    }
+//    
+//    public function getable() {
+//        return self::$table;
+//    }
+//
+//    static function getr() {
+//        return self::$table;
+//    }
+//}
+//
+//class User extends Model {
+//
+//    static $table = 'users';
+//
+////    static function foo(){
+////        return static::getlable();
+////    }
+//
+////    static function getTable() {
+////        return static::getable();
+////    }
+//
+//    public function ggg() {
+//        return $this->getTable();
+//    }
+//
+//}
+////echo User::getlable().'<br>';
+//$user = new User();
+//echo $user->ggg().'<br>';
+////echo $user::getlable();
+//die;
+
+
+
+//function qwe(){
+//    echo '666'.'<br>';
+//    return true;
+//}
+//
+//if(true || qwe()){
+//    echo 'good'; die;
+//}
+//echo 'no good';
+//die;
+
+
+
 //function t1(){
 //    echo 123;
 //}

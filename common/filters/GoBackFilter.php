@@ -12,9 +12,44 @@ class GoBackFilter extends ActionFilter {
 
     public function beforeAction($action) {
 
-//        $currentUrl = Url::current([], true);
         $referrer = Yii::$app->request->referrer;
+        
+        if (!$this->isThisDomain($referrer)){
+            $referrer = null;
+        }
+        
+        if ($referrer && $this->isBackAction($referrer)){
+            return true;
+        }
+       
+        if (in_array($action->id, $this->actions)) {
+            Yii::$app->user->setReturnUrl($referrer);
+        }
 
+        return true;
+    }
+
+    /**
+     * @param string $referrer referer URL
+     * @return boolean is request came from this domain
+     */
+    public function isThisDomain($referrer) {
+        $referrerDomain = parse_url($referrer, PHP_URL_HOST);
+        
+        $serverName = Yii::$app->request->serverName;
+        
+        if ($referrerDomain !== $serverName){
+            return false;
+        }
+        
+        return true;
+    }
+    
+    /**
+     * @param string $referrer referrer URL
+     * @return boolean is referer one of this "back actions"
+     */
+    protected function isBackAction($referrer) {
         $ControllerID = $this->owner->getUniqueId();
         
         foreach ($this->actions as $act) {
@@ -24,14 +59,7 @@ class GoBackFilter extends ActionFilter {
                 return true;
             }
         }
-
-        $returnUrlParam = Yii::$app->user->returnUrlParam;
-
-        if (in_array($action->id, $this->actions)) {
-            Yii::$app->user->setReturnUrl(Yii::$app->request->referrer);
-        }
-
-        return true;
+        return false;
     }
-
+    
 }
