@@ -69,7 +69,7 @@ class DefaultController extends Controller {
         } else {
             $model->password = '111111';
             $model->email = 'mdifps@mail.ru';
-                    
+
             return $this->render('login', [
                         'model' => $model,
             ]);
@@ -81,14 +81,17 @@ class DefaultController extends Controller {
      *
      * @return mixed
      */
-    public function actionLogout() {       
-        $returnUrl = $_SESSION[Yii::$app->user->returnUrlParam];
+    public function actionLogout() {
         
+        $returnUrl = null;
+        
+        if ($_SESSION[Yii::$app->user->returnUrlParam]){
+            $returnUrl = $_SESSION[Yii::$app->user->returnUrlParam];
+        }
+
         Yii::$app->user->logout();
-        
-        Yii::$app->user->setReturnUrl($returnUrl);
-                
-        return $this->goBack();
+
+        return $this->goBack($returnUrl);
     }
 
     /**
@@ -156,6 +159,18 @@ class DefaultController extends Controller {
         return $this->render('resetPassword', [
                     'model' => $model,
         ]);
+    }
+    
+    
+    public function goBack($defaultUrl = null) {
+        
+        if ($defaultUrl === null && isset($_SESSION[Yii::$app->user->returnUrlParam])) {
+            
+        $defaultUrl = $_SESSION[Yii::$app->user->returnUrlParam];
+        unset($_SESSION[Yii::$app->user->returnUrlParam]);
+        }
+        
+        return parent::goBack($defaultUrl);
     }
 
 }

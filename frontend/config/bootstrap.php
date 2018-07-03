@@ -1,40 +1,61 @@
 <?php
 
+//$var = 12;
+//
+//$arr = [];
+//if ($var == $arr['qwe']){
+//    echo $var;
+//}
+//die;
+
 //class Model {
 //
-//    static $table = 'table';
-//
-//    static function getTable() {
-//        return static::$table;
+//    static function ttt(){
+//        return 'gg';
 //    }
 //    
-//    public function getable() {
-//        return self::$table;
+//    public function ggg() {
+//        return 333;
 //    }
 //
-//    static function getr() {
-//        return self::$table;
-//    }
 //}
 //
 //class User extends Model {
 //
-//    static $table = 'users';
-//
-////    static function foo(){
-////        return static::getlable();
-////    }
-//
-////    static function getTable() {
-////        return static::getable();
-////    }
-//
 //    public function ggg() {
-//        return $this->getTable();
+//        return 444;
 //    }
-//
 //}
-////echo User::getlable().'<br>';
+//
+//class my extends User {
+//    static $nn = 999;
+//    
+//    public function ggg() {
+//        return 555;
+//    }
+//    
+//    public function myfunc(){
+//        echo Model::ggg().'<br>';
+//        echo User::ggg().'<br>';
+//        echo static::ggg().'<br>';
+//        echo static::$nn.'<br>';
+//        echo $this->ttt().'<br>';
+//    }
+//}
+//
+//$var = new my();
+//
+//$var->myfunc();
+//
+//die;
+
+
+
+
+
+
+
+////echo User::ggg().'<br>';
 //$user = new User();
 //echo $user->ggg().'<br>';
 ////echo $user::getlable();
