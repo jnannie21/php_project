@@ -1,5 +1,54 @@
 <?php
 
+
+//function behaviors() {
+//
+//    return [
+//        'goback' => [
+//            'class' => GoBackFilter::class,
+//            'actions' => ['signup', 'login', 'logout', 'request-password-reset'],
+//        ],
+//    ];
+//}
+
+//$arr['qwe'] = null;
+//$we = false;
+//if (empty($we)) {
+//    echo 666;
+//}
+//die;
+
+
+//$url = parse_url(null, PHP_URL_HOST);
+//
+//var_dump($url);
+//
+//die;
+
+//function gg(){
+//    echo 111;
+//    return 111;
+//}
+//function ee(){
+//    echo 222;
+////    return 222;
+//}
+//function tt(){
+//    return ee() or gg();
+//}
+//
+//true and gg() and ee();
+//
+////echo $dd;
+//
+//die;
+
+
+
+
+//$id = $session->getHasSessionId() || $session->getIsActive() ? $session->get($this->idParam) : null;
+
+
 //$var = 12;
 //
 //$arr = [];

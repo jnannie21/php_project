@@ -85,7 +85,7 @@ class DefaultController extends Controller {
         
         $returnUrl = null;
         
-        if ($_SESSION[Yii::$app->user->returnUrlParam]){
+        if (isset($_SESSION[Yii::$app->user->returnUrlParam])){
             $returnUrl = $_SESSION[Yii::$app->user->returnUrlParam];
         }
 
@@ -160,17 +160,4 @@ class DefaultController extends Controller {
                     'model' => $model,
         ]);
     }
-    
-    
-    public function goBack($defaultUrl = null) {
-        
-        if ($defaultUrl === null && isset($_SESSION[Yii::$app->user->returnUrlParam])) {
-            
-        $defaultUrl = $_SESSION[Yii::$app->user->returnUrlParam];
-        unset($_SESSION[Yii::$app->user->returnUrlParam]);
-        }
-        
-        return parent::goBack($defaultUrl);
-    }
-
 }

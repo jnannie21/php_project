@@ -21,13 +21,11 @@ class ProfileController extends Controller {
     public function actionView($username) {
 
         if (!$user = User::findByUsername($username)){
-            $user = User::findIdentity($username);
+            if (!$user = User::findIdentity($username)){
+                throw new NotFoundHttpException();
+            }
         }
-        
-        if (!$user){
-            throw new NotFoundHttpException();
-        }
-        
+                
         $modelPicture = new PictureForm();
 
         return $this->render('view', [

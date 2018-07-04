@@ -10,7 +10,7 @@ use yii\helpers\FileHelper;
 /**
  * File storage compoment
  *
- * @author md
+ * @author dmitry polushlin
  */
 class Storage extends Component implements StorageInterface
 {
