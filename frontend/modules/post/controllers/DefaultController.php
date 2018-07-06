@@ -45,7 +45,7 @@ class DefaultController extends Controller
      */
     public function actionView($id)
     {
-        /* @var $currentUser User */
+        /* @var $currentUser \frontend\models\User */
         $currentUser = Yii::$app->user->identity;    
         
         return $this->render('view', [
@@ -65,7 +65,7 @@ class DefaultController extends Controller
         $id = Yii::$app->request->post('id');
         $post = $this->findPost($id);
         
-        /* @var $currentUser User */
+        /* @var $currentUser \frontend\models\User */
         $currentUser = Yii::$app->user->identity;        
         
         $post->like($currentUser);
@@ -86,7 +86,7 @@ class DefaultController extends Controller
 
         $id = Yii::$app->request->post('id');
 
-        /* @var $currentUser User */
+        /* @var $currentUser \frontend\models\User */
         $currentUser = Yii::$app->user->identity;
         $post = $this->findPost($id);
 
@@ -100,7 +100,7 @@ class DefaultController extends Controller
 
     /**
      * @param integer $id
-     * @return frontend\models\Post
+     * @return \frontend\models\Post
      * @throws NotFoundHttpException
      */
     private function findPost($id)
