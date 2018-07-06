@@ -15,6 +15,9 @@ return [
         'user' => [
             'class' => 'frontend\modules\user\Module',
         ],
+        'post' => [
+            'class' => 'frontend\modules\post\Module',
+        ],
     ],
     'components' => [
         'request' => [
@@ -48,6 +51,7 @@ return [
             'showScriptName' => false,
             'rules' => [
                 'profile/<username\w+>' => 'user/profile/view',
+                'post/<id:\d+>' => 'post/default/view',
             ],
         ],
         'storage' => [
