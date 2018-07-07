@@ -12,9 +12,19 @@ class PostForm extends Model
 
     const MAX_DESCRIPTION_LENGHT = 1000;
 
+    /**
+     * @var yii\web\UploadedFile uploaded picture
+     */
     public $picture;
+    
+    /**
+     * @var string description of the picture
+     */
     public $description;
     
+    /**
+     * @var frontend\models\User Yii::$app->user->identity
+     */
     private $user;
 
     /**
