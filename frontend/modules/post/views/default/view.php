@@ -17,7 +17,7 @@ use yii\web\JqueryAsset;
         </div>
         
         <div class="col-md-12">
-            <img src="<?php echo $post->getImage(); ?>" height="400"/>
+            <img src="<?php echo $post->getImage(); ?>"/>
         </div>
 
         <div class="col-md-12">
