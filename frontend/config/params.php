@@ -10,4 +10,6 @@ return [
         'maxWidth' => 940,
         'maxHeight' => 705,
     ],
+    
+    'feedPostLimit' => 200,
 ];

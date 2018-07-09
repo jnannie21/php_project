@@ -2,6 +2,7 @@
 
 namespace frontend\controllers;
 
+use Yii;
 use yii\web\Controller;
 use frontend\models\User;
 
@@ -28,13 +29,33 @@ class SiteController extends Controller {
     /**
      * Displays homepage.
      *
-     * @return mixed
+     * @return string
      */
     public function actionIndex() {
-        $users = User::find()->all();
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(['/user/default/login']);
+        }
+
+        $currentUser = Yii::$app->user->identity;
+
+        $limit = Yii::$app->params['feedPostLimit'];
+        $feedItems = $currentUser->getFeed($limit);
+
         return $this->render('index', [
-                    'users' => $users,
+                    'feedItems' => $feedItems,
+                    'currentUser' => $currentUser,
         ]);
     }
 
+    /**
+     * Displays list of users
+     * 
+     * @return string
+     */
+    public function actionUsers() {
+        $users = User::find()->all();
+        return $this->render('users', [
+                    'users' => $users,
+        ]);        
+    }
 }

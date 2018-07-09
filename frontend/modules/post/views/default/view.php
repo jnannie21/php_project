@@ -32,7 +32,7 @@ use yii\web\JqueryAsset;
         Likes: <span class="likes-count"><?php echo $post->countLikes(); ?></span>
 
         <a href="#" class="btn btn-primary button-like" data-id="<?php echo $post->id; ?>">
-            <?php echo ($currentUser && $post->isLikedBy($currentUser)) ? "Unlike" : "Like"; ?>&nbsp;&nbsp;
+            <?php echo ($currentUser && $post->isLikedBy($currentUser)) ? "Unlike" : "Like"; ?>
             <span class="glyphicon <?php echo ($currentUser && $post->isLikedBy($currentUser)) ? "glyphicon-thumbs-down" : "glyphicon-thumbs-up"; ?>">
             </span>
         </a>

@@ -16,7 +16,7 @@ class ProfileController extends Controller {
     /**
      * User profile
      * 
-     * @param string $username Username or user ID
+     * @param string|int $username Username or user ID
      */
     public function actionView($username) {
 

@@ -1,5 +1,21 @@
 <?php
 
+//function yy($var = []){
+//    echo 666;
+//}
+//
+//yy();
+//
+//die;
+
+//$str = '006';
+//
+//$var = $str + 123;
+//
+//echo $var;
+//
+//die;
+
 
 //function behaviors() {
 //
