@@ -1,7 +1,7 @@
 $(document).ready(function () {
     $('a.button-complain').click(function () { 
         var button = $(this);
-        var preloader = $(this).find('i .icon-preloader');
+        var preloader = $(this).find('i.icon-preloader');
         var params = {
             'id': $(this).attr('data-id')
         };

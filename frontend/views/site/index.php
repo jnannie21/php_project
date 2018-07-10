@@ -11,7 +11,7 @@ use yii\helpers\HtmlPurifier;
 $this->title = 'Newsfeed';
 ?>
 
-<div class="page-posts no-padding">                    
+<div class="page-posts no-padding">
     <div class="row">                        
         <div class="page page-post col-sm-12 col-xs-12">
             <div class="blog-posts blog-posts-large">
@@ -27,7 +27,7 @@ $this->title = 'Newsfeed';
                             <article class="post col-sm-12 col-xs-12">                                            
                                 <div class="post-meta">
                                     <div class="post-title">
-                                        <img src="<?php echo $feedItem->author_picture; ?>" class="author-image" height="50"/>
+                                        <img src="<?php echo $feedItem->author_picture; ?>" class="author-image" width="30" height="30"/>
                                         <div class="author-name">
                                             <a href="<?php echo Url::to(['/user/profile/view', 'username' => ($feedItem->author_name) ? $feedItem->author_name : $feedItem->author_id]); ?>">
                                                 <?php echo Html::encode($feedItem->author_name); ?>
@@ -93,6 +93,6 @@ $this->title = 'Newsfeed';
 $this->registerJsFile('@web/js/likes.js', [
     'depends' => JqueryAsset::className(),
 ]);
-$this->registerJsFile('@web/js/complaints.js', [
-    'depends' => JqueryAsset::className(),
-]);
+//$this->registerJsFile('@web/js/complaints.js', [
+//    'depends' => JqueryAsset::className(),
+//]);
