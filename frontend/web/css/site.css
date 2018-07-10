@@ -130,7 +130,7 @@ a.desc:after {
 
 @media (min-width: 1200px) {
     .container {
-        width: 970px !important;
+        width: 970px;
     }
 }
 
