@@ -6,14 +6,14 @@ $(document).ready(function () {
             'id': $(this).attr('data-id')
         };
 
-        if (span.hasClass('glyphicon-thumbs-up')) {
+        if (span.hasClass('glyphicon glyphicon-thumbs-up')) {
             $.post('/post/default/like', params, function (data) {
                 if (data.success) {
                     button.siblings('.likes-count').html(data.likesCount);
                     
-                    span.removeClass('glyphicon-thumbs-up').addClass('glyphicon-thumbs-down');
+                    span.removeClass('glyphicon glyphicon-thumbs-up').addClass('glyphicon glyphicon-thumbs-down');
                     
-                    button.html('Unlike&nbsp;&nbsp;'+span[0].outerHTML);
+                    button.html('Unlike&nbsp;'+span[0].outerHTML);
                 }
             });
         } else {
@@ -21,9 +21,9 @@ $(document).ready(function () {
                 if (data.success) {
                     button.siblings('.likes-count').html(data.likesCount);
                     
-                    span.removeClass('glyphicon-thumbs-down').addClass('glyphicon-thumbs-up');
+                    span.removeClass('glyphicon glyphicon-thumbs-down').addClass('glyphicon glyphicon-thumbs-up');
                     
-                    button.html('Like&nbsp;&nbsp;'+span[0].outerHTML);
+                    button.html('Like&nbsp;'+span[0].outerHTML);
                 }
             });
         }

@@ -1,3 +1,30 @@
+.display-none {
+    display: none;
+}
+
+@media (min-width: 1200px) {
+    .container {
+        width: 970px;
+    }
+}
+
+@media (min-width: 768px) {
+    .navbar-default {
+        border-color: transparent;
+        background-color: transparent;
+    }
+}
+
+.navbar-default .navbar-nav > .active > a,
+.navbar-default .navbar-nav > .active > a:hover,
+.navbar-default .navbar-nav > .active > a:focus {
+    background-color: transparent;
+}
+
+.nav li > form > button.logout {
+    color: #000;
+}
+
 .page-posts .author-name,
 .page-posts .author-image {
     display: inline-block;
@@ -17,8 +44,10 @@
 .page-posts .post-comments,
 .page-posts .post-date,
 .page-posts .post-report,
-.page-posts .post-bottom-right {
+.page-posts .post-bottom-right,
+.page-posts .post-meta {
     display: inline-block;
+    margin-right: 10px;
 }
 
 .page-posts .post-date {
@@ -28,4 +57,26 @@
 
 .page-posts .post-bottom-right {
     float: right;
+}
+
+.page-posts .post-type-image img,
+.page-profile .profile-picture img {
+    max-height: 100%;
+    max-width: 100%;
+}
+
+.page-profile .profile-picture img{
+    max-height: 200px;
+}
+
+.page-posts .post-likes .button-like,
+.page-posts .post-meta .author-name a {
+    color: #000;
+    text-decoration: none;
+}
+
+.post {
+    padding-top: 5px;
+    margin-bottom: 30px;
+    box-shadow: 0 0 1px;
 }

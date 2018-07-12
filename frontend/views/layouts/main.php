@@ -45,7 +45,7 @@ AppAsset::register($this);
         $menuItems[] = ['label' => 'Login', 'url' => ['/user/default/login']];
     } else {
         $menuItems[] = ['label' => 'Create post', 'url' => ['/post/default/create']];
-        $menuItems[] = ['label' => 'Profile', 'url' => Url::to(['/user/profile/view', 'username' => Yii::$app->user->identity->username])];
+        $menuItems[] = ['label' => 'Profile', 'url' => [Url::to(['/user/profile/view', 'username' => Yii::$app->user->identity->username])]];
         $menuItems[] = '<li>'
             . Html::beginForm(['/user/default/logout'], 'post')
             . Html::submitButton(
@@ -55,9 +55,15 @@ AppAsset::register($this);
             . Html::endForm()
             . '</li>';
     }
+    if (Yii::$app->controller->getRoute() == 'user/profile/view'){
+        $route = ltrim(Url::to(['/user/profile/view', 'username' => Yii::$app->user->identity->username]), '/');
+    } else { 
+        $route = Yii::$app->controller->getRoute(); 
+    }
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => $menuItems,
+        'route' => $route,
     ]);
     NavBar::end();
     ?>

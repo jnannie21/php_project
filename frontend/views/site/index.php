@@ -12,26 +12,15 @@ $this->title = 'Newsfeed';
 ?>
 
 <div class="page-posts">
-
     <div class="row">
 
         <?php if ($feedItems): ?>
             <?php foreach ($feedItems as $feedItem): ?>
                 <?php /* @var $feedItem frontend\models\Feed */ ?>
 
-
                 <!-- feed item -->
-                <article class="post col-xs-12 col-sm-12">
-                    <div class="post-meta">
-                        <div class="post-title">
-                            <img src="<?php echo $feedItem->author_picture; ?>" class="author-image"/>
-                            <div class="author-name">
-                                <a href="<?php echo Url::to(['/user/profile/view', 'username' => $feedItem->author_name]); ?>">
-                                    <?php echo Html::encode($feedItem->author_name); ?>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
+                <div class="post col-xs-12 col-sm-12">
+
                     <div class="post-type-image">
                         <a href="<?php echo Url::to(['/post/default/view', 'id' => $feedItem->post_id]); ?>">
                             <img src="<?php echo Yii::$app->storage->getFile($feedItem->post_filename); ?>" alt="" />  
@@ -41,13 +30,21 @@ $this->title = 'Newsfeed';
                         <p><?php echo HtmlPurifier::process($feedItem->post_description); ?></p>
                     </div>
                     <div class="post-bottom">
+                        <div class="post-meta">
+                            <img src="<?php echo $feedItem->author_picture; ?>" class="author-image"/>
+                            <div class="author-name">
+                                <a href="<?php echo Url::to(['/user/profile/view', 'username' => $feedItem->author_name]); ?>">
+                                    <?php echo Html::encode($feedItem->author_name); ?>
+                                </a>
+                            </div>
+                        </div>
                         <div class="post-likes">
-                            <span class="likes-count"><?php echo $feedItem->countLikes(); ?></span>
-                            &nbsp;&nbsp;&nbsp;
-                            <a href="#!" class="btn btn-default button-like" data-id="<?php echo $feedItem->post_id; ?>">
+                            <a href="#!" class="button-like" data-id="<?php echo $feedItem->post_id; ?>">
                                 <?php echo ($currentUser->likesPost($feedItem->post_id)) ? "Unlike" : "Like"; ?>
-                                <span class="glyphicon <?php echo ($currentUser->likesPost($feedItem->post_id)) ? "glyphicon-thumbs-down" : "glyphicon-thumbs-up"; ?>"></span>
+                                <span class="glyphicon <?php echo ($currentUser->likesPost($feedItem->post_id)) ? "glyphicon glyphicon-thumbs-down" : "glyphicon glyphicon-thumbs-up"; ?>"></span>
                             </a>
+                            
+                            <span class="likes-count"><?php echo $feedItem->countLikes(); ?></span>
                         </div>
                         <div class="post-comments">
                             <a href="#!">0 Comments</a>
@@ -66,10 +63,9 @@ $this->title = 'Newsfeed';
                                 <?php endif; ?>
                             </div>
                         </div>
-
                     </div>
-                    <hr><br>
-                </article>
+                    <br><br><br>
+                </div>
                 <!-- feed item -->
 
             <?php endforeach; ?>
@@ -81,7 +77,6 @@ $this->title = 'Newsfeed';
         <?php endif; ?>
 
     </div>
-
 </div>
 
 
