@@ -8,13 +8,13 @@ use yii\web\Response;
 use yii\web\UploadedFile;
 use frontend\models\Post;
 use frontend\modules\post\models\forms\PostForm;
+use yii\web\NotFoundHttpException;
 
 /**
  * Default controller for the `post` module
  */
 class DefaultController extends Controller
 {
-
     /**
      * Renders the create view for the module
      * @return string
@@ -48,7 +48,7 @@ class DefaultController extends Controller
      * @return string
      */
     public function actionView($id)
-    {
+    {        
         /* @var $currentUser \frontend\models\User */
         $currentUser = Yii::$app->user->identity;    
         

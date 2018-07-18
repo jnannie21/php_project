@@ -1,5 +1,18 @@
 <?php
 
+//
+//function f() {echo 777; return 123;}
+//function ff() {echo 666; return 234;}
+//
+//$var = f() || ff();
+//
+////$var = $var ?: 123;
+//
+//echo $var;
+//
+//die;
+
+
 //function yy($var = []){
 //    echo 666;
 //}

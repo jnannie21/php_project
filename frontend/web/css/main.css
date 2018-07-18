@@ -2,16 +2,14 @@
     display: none;
 }
 
-@media (min-width: 1200px) {
-    .container {
-        width: 970px;
-    }
+.wrap {
+    background-color: rgba(250,250,250);
 }
 
 @media (min-width: 768px) {
     .navbar-default {
         border-color: transparent;
-        background-color: transparent;
+        background-color: rgba(245,245,245,0.8);
     }
 }
 
@@ -21,8 +19,37 @@
     background-color: transparent;
 }
 
-.nav li > form > button.logout {
-    color: #000;
+@media (min-width: 970px) {
+    .container {
+        width: 970px;
+    }
+    .row-posts {
+        float: left;
+        width: 700px;
+    }
+    .right-row-posts {
+        float: right;
+        width: 220px;
+    }
+    .right-field-posts {
+        float: right;
+        width: 220px;
+        box-shadow: 0 0 1px rgba(0,0,0,0.1);
+        margin-bottom: 20px;
+    }
+}
+
+@media (max-width: 970px) {
+    .right-row-posts {
+        display: none;
+    }
+}
+
+.post {
+    padding-top: 10px;
+    margin-bottom: 50px;
+    box-shadow: 0 0 1px rgba(0,0,0,0.1);
+    background-color: rgba(255,255,255);
 }
 
 .page-posts .author-name,
@@ -37,7 +64,7 @@
     -webkit-border-radius: 25px;
     -moz-border-radius: 25px;
     border-radius: 25px;
-    margin: 0px 10px 10px 0px;
+    margin: 0px 2px 10px 0px;
 }
 
 .page-posts .post-likes,
@@ -50,9 +77,15 @@
     margin-right: 10px;
 }
 
+.page-posts .post-title,
+.page-posts .post-description,
+.page-posts .post-bottom {
+    margin-left: 5px;
+}
+
 .page-posts .post-date {
-    font-size: 11px;
-    font-weight: bold;
+    font-size: 12px;
+    /*font-weight: bold;*/
 }
 
 .page-posts .post-bottom-right {
@@ -75,8 +108,6 @@
     text-decoration: none;
 }
 
-.post {
-    padding-top: 5px;
-    margin-bottom: 30px;
-    box-shadow: 0 0 1px;
+.page-posts .post-title {
+    font-size: 13pt;
 }

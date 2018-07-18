@@ -280,14 +280,36 @@ class User extends ActiveRecord implements IdentityInterface {
     }
     
     /**
+     * @param \frontend\models\Post $post post to send followers
+     */
+    public function sendFeed(Post $post) {
+        /* @var $redis \yii\redis\Connection */
+        $redis = Yii::$app->redis;
+        $key = "user:{$this->id}:followers";
+        $followers = $redis->smembers($key);
+
+        if ($followers) {
+            $timeRange = time() - Yii::$app->params['feed_ttl'];
+
+            foreach ($followers as $follower) {
+                $redis->zadd("user:{$follower}:feed", $post->created_at, $post->id);
+                $redis->zremrangebyscore("user:{$follower}:feed", '-inf', $timeRange);
+            }
+        }
+    }
+    
+    /**
      * Get data for feed
      * @param integer $limit
      * @return array
      */
     public function getFeed(int $limit)
     {
-        $order = ['post_created_at' => SORT_DESC];
-        return $this->hasMany(Feed::className(), ['user_id' => 'id'])->orderBy($order)->limit($limit)->all();
+        $order = ['created_at' => SORT_DESC];
+        $redis = Yii::$app->redis;
+        $posts = $redis->zrangebyscore("user:{$this->id}:feed", '-inf', 'inf');
+
+        return Post::find()->where(['id' => $posts])->orderBy($order)->limit($limit)->all();
     }
     
     /**

@@ -9,7 +9,9 @@ use frontend\models\User;
  * This is the model class for table "post".
  *
  * @property integer $id
- * @property integer $user_id
+ * @property integer $author_id
+ * @property string $author_name
+ * @property string $author_picture
  * @property string $filename
  * @property string $description
  * @property integer $created_at
@@ -32,7 +34,9 @@ class Post extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'user_id' => 'User ID',
+            'author_name' => 'Author name',
+            'author_picture' => 'Author picture',
+            'author_id' => 'Author ID',
             'filename' => 'Filename',
             'description' => 'Description',
             'created_at' => 'Created At',
@@ -50,7 +54,7 @@ class Post extends \yii\db\ActiveRecord
      */
     public function getUser()
     {
-        return $this->hasOne(User::class, ['id' => 'user_id']);
+        return $this->hasOne(User::class, ['id' => 'author_id']);
     }
     
     /**
@@ -123,5 +127,12 @@ class Post extends \yii\db\ActiveRecord
             $this->complaints++;
             return $this->save(false, ['complaints']);
         }
+    }
+    
+    public function isReported(User $user)
+    {
+        /* @var $redis yii\redis\Connection */
+        $redis = Yii::$app->redis;
+        return $redis->sismember("post:{$this->id}:complaints", $user->getId());
     }
 }

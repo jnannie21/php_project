@@ -40,6 +40,8 @@ AppAsset::register($this);
         ['label' => 'Home', 'url' => ['/site/index']],
         ['label' => 'Users', 'url' => ['/site/users']],
     ];
+        
+    $route = Yii::$app->controller->getRoute();
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => 'Signup', 'url' => ['/user/default/signup']];
         $menuItems[] = ['label' => 'Login', 'url' => ['/user/default/login']];
@@ -54,12 +56,14 @@ AppAsset::register($this);
             )
             . Html::endForm()
             . '</li>';
-    }
-    if (Yii::$app->controller->getRoute() == 'user/profile/view'){
+        /*
+         * setting route for Nav widget to display Profile menuItem correctly
+         */
+    if ($route == 'user/profile/view'){
         $route = ltrim(Url::to(['/user/profile/view', 'username' => Yii::$app->user->identity->username]), '/');
-    } else { 
-        $route = Yii::$app->controller->getRoute(); 
+    } 
     }
+
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => $menuItems,

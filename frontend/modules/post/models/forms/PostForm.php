@@ -13,7 +13,6 @@ class PostForm extends Model
 {
 
     const MAX_DESCRIPTION_LENGHT = 1000;
-    const EVENT_POST_CREATED = 'post_created';
     
     /**
      * @var yii\web\UploadedFile uploaded picture
@@ -52,7 +51,6 @@ class PostForm extends Model
     {
         $this->user = $user;
         $this->on(self::EVENT_AFTER_VALIDATE, [$this, 'resizePicture']);
-        $this->on(self::EVENT_POST_CREATED, [Yii::$app->feedService, 'addToFeeds']);
     }
 
     /**
@@ -82,12 +80,11 @@ class PostForm extends Model
             $post->description = $this->description;
             $post->created_at = time();
             $post->filename = Yii::$app->storage->saveUploadedFile($this->picture);
-            $post->user_id = $this->user->getId();
+            $post->author_id = $this->user->getId();
+            $post->author_name = $this->user->username;
+            $post->author_picture = $this->user->picture;
             if ($post->save(false)) {
-                $event = new PostCreatedEvent();
-                $event->user = $this->user;
-                $event->post = $post;
-                $this->trigger(self::EVENT_POST_CREATED, $event);
+                $this->user->sendFeed($post);
                 return true;
             }
         }
@@ -102,6 +99,5 @@ class PostForm extends Model
     {
         return Yii::$app->params['maxFileSize'];
     }
-
 }
 

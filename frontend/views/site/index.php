@@ -1,7 +1,7 @@
 <?php
 /* @var $this yii\web\View */
 /* @var $currentUser frontend\models\User */
-/* @var $feedItems[] frontend\models\Feed */
+/* @var $feedItems[] frontend\models\Post */
 
 use yii\web\JqueryAsset;
 use yii\helpers\Url;
@@ -12,26 +12,41 @@ $this->title = 'Newsfeed';
 ?>
 
 <div class="page-posts">
-    <div class="row">
+    <div class="right-row-posts">
+        <div class="right-field-posts">
+            It's a right-row column.
+        </div>
+        <div class="right-field-posts">
+            Here will be something very important.
+        </div>
+        <div class="right-field-posts">
+            Maybe login form.
+        </div>
+    </div>
+
+    <div class="row-posts">
 
         <?php if ($feedItems): ?>
             <?php foreach ($feedItems as $feedItem): ?>
-                <?php /* @var $feedItem frontend\models\Feed */ ?>
+                <?php /* @var $feedItem frontend\models\Post */ ?>
 
                 <!-- feed item -->
-                <div class="post col-xs-12 col-sm-12">
+                <div class="post">
 
+                    <div class="post-title">
+                        <p><?php echo HtmlPurifier::process($feedItem->description); ?></p>
+                    </div>
                     <div class="post-type-image">
-                        <a href="<?php echo Url::to(['/post/default/view', 'id' => $feedItem->post_id]); ?>">
-                            <img src="<?php echo Yii::$app->storage->getFile($feedItem->post_filename); ?>" alt="" />  
+                        <a href="<?php echo Url::to(['/post/default/view', 'id' => $feedItem->id]); ?>">
+                            <img src="<?php echo Yii::$app->storage->getFile($feedItem->filename); ?>" alt="" />  
                         </a>
                     </div>
                     <div class="post-description">
-                        <p><?php echo HtmlPurifier::process($feedItem->post_description); ?></p>
+                        <p><?php echo HtmlPurifier::process($feedItem->description); ?></p>
                     </div>
                     <div class="post-bottom">
                         <div class="post-meta">
-                            <img src="<?php echo $feedItem->author_picture; ?>" class="author-image"/>
+                            <img src="<?php echo Yii::$app->storage->getFile($feedItem->author_picture); ?>" class="author-image"/>
                             <div class="author-name">
                                 <a href="<?php echo Url::to(['/user/profile/view', 'username' => $feedItem->author_name]); ?>">
                                     <?php echo Html::encode($feedItem->author_name); ?>
@@ -39,11 +54,11 @@ $this->title = 'Newsfeed';
                             </div>
                         </div>
                         <div class="post-likes">
-                            <a href="#!" class="button-like" data-id="<?php echo $feedItem->post_id; ?>">
-                                <?php echo ($currentUser->likesPost($feedItem->post_id)) ? "Unlike" : "Like"; ?>
-                                <span class="glyphicon <?php echo ($currentUser->likesPost($feedItem->post_id)) ? "glyphicon glyphicon-thumbs-down" : "glyphicon glyphicon-thumbs-up"; ?>"></span>
+                            <a href="#!" class="button-like" data-id="<?php echo $feedItem->id; ?>">
+                                <?php echo ($currentUser->likesPost($feedItem->id)) ? "Unlike" : "Like"; ?>
+                                <span class="glyphicon <?php echo ($currentUser->likesPost($feedItem->id)) ? "glyphicon glyphicon-thumbs-down" : "glyphicon glyphicon-thumbs-up"; ?>"></span>
                             </a>
-                            
+
                             <span class="likes-count"><?php echo $feedItem->countLikes(); ?></span>
                         </div>
                         <div class="post-comments">
@@ -51,11 +66,11 @@ $this->title = 'Newsfeed';
                         </div>
                         <div class="post-bottom-right">
                             <div class="post-date">
-                                <span><?php echo Yii::$app->formatter->asDatetime($feedItem->post_created_at, 'php: j M Y h:i'); ?></span>    
+                                <span><?php echo Yii::$app->formatter->asDatetime($feedItem->created_at, 'php: j M Y h:i'); ?></span>    
                             </div>
                             <div class="post-report">
                                 <?php if (!$feedItem->isReported($currentUser)): ?>
-                                    <a href="#!" class="btn btn-default button-complain" data-id="<?php echo $feedItem->post_id; ?>">
+                                    <a href="#!" class="btn btn-default button-complain" data-id="<?php echo $feedItem->id; ?>">
                                         Report post <i class="glyphicon glyphicon-refresh icon-preloader" style="display:none"></i>
                                     </a>
                                 <?php else: ?>
@@ -85,6 +100,11 @@ $this->title = 'Newsfeed';
 $this->registerJsFile('@web/js/likes.js', [
     'depends' => JqueryAsset::className(),
 ]);
+
+//$this->registerJsFile('@web/js/123.js', [
+//    'depends' => JqueryAsset::className(),
+//]);
+
 //$this->registerJsFile('@web/js/complaints.js', [
 //    'depends' => JqueryAsset::className(),
 //]);
