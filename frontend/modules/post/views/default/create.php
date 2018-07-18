@@ -8,13 +8,13 @@ use yii\helpers\Html;
 
 <div class="post-default-index">
     
-    <h1>Create post</h1>
+    <h3>Create post</h3>
 
     <?php $form = ActiveForm::begin(); ?>
     
         <?php echo $form->field($model, 'picture')->fileInput(); ?>
     
-        <?php echo $form->field($model, 'description'); ?>
+        <?php echo $form->field($model, 'description')->textarea(['class' => 'form-control text-content']); ?>
     
         <?php echo Html::submitButton('Create'); ?>
     

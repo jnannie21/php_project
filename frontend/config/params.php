@@ -16,5 +16,5 @@ return [
     /**
      * time to live for posts in feed in seconds = 7 days = 7*24*3600
      */
-    'feed_ttl' => 604800,
+    'feedTTL' => 604800,
 ];

@@ -289,7 +289,7 @@ class User extends ActiveRecord implements IdentityInterface {
         $followers = $redis->smembers($key);
 
         if ($followers) {
-            $timeRange = time() - Yii::$app->params['feed_ttl'];
+            $timeRange = time() - Yii::$app->params['feedTTL'];
 
             foreach ($followers as $follower) {
                 $redis->zadd("user:{$follower}:feed", $post->created_at, $post->id);
