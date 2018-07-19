@@ -1,6 +1,8 @@
 <?php
 
-//
+//phpinfo();
+//die;
+
 //function f() {echo 777; return 123;}
 //function ff() {echo 666; return 234;}
 //

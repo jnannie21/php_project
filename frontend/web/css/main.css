@@ -112,6 +112,19 @@
     font-size: 13pt;
 }
 
-.field-postform-description .text-content {
+.post-create-form .load-picture-btn {
+    position: absolute;
+}
+
+.post-create-form .load-picture-input {
+    overflow: hidden; 
+    opacity: 0; 
+    width: 100px; 
+    height: 30px; 
+    position: relative; 
+    margin-bottom: 12px;
+}
+
+.post-create-form .text-content-input {
     height: 200px;
 }

@@ -63,7 +63,7 @@ class Post extends \yii\db\ActiveRecord
      */
     public function like(User $user)
     {
-        /* @var $redis yii\redis\Connection */
+        /* @var $redis \yii\redis\Connection */
         $redis = Yii::$app->redis;
         $redis->sadd("post:{$this->getId()}:likes", $user->getId());
         $redis->sadd("user:{$user->getId()}:likes", $this->getId());
@@ -75,7 +75,7 @@ class Post extends \yii\db\ActiveRecord
      */
     public function unLike(User $user)
     {
-        /* @var $redis yii\redis\Connection */
+        /* @var $redis \yii\redis\Connection */
         $redis = Yii::$app->redis;
         $redis->srem("post:{$this->getId()}:likes", $user->getId());
         $redis->srem("user:{$user->getId()}:likes", $this->getId());
@@ -94,7 +94,7 @@ class Post extends \yii\db\ActiveRecord
      */
     public function countLikes()
     {
-        /* @var $redis yii\redis\Connection */
+        /* @var $redis \yii\redis\Connection */
         $redis = Yii::$app->redis;
         return $redis->scard("post:{$this->getId()}:likes");
     }
@@ -106,7 +106,7 @@ class Post extends \yii\db\ActiveRecord
      */
     public function isLikedBy(User $user)
     {
-        /* @var $redis yii\redis\Connection */
+        /* @var $redis \yii\redis\Connection */
         $redis = Yii::$app->redis;
         return $redis->sismember("post:{$this->getId()}:likes", $user->getId());
     }
@@ -118,7 +118,7 @@ class Post extends \yii\db\ActiveRecord
      */
     public function complain(User $user)
     {
-        /* @var $redis yii\redis\Connection */
+        /* @var $redis \yii\redis\Connection */
         $redis = Yii::$app->redis;
         $key = "post:{$this->getId()}:complaints";
         
@@ -131,7 +131,7 @@ class Post extends \yii\db\ActiveRecord
     
     public function isReported(User $user)
     {
-        /* @var $redis yii\redis\Connection */
+        /* @var $redis \yii\redis\Connection */
         $redis = Yii::$app->redis;
         return $redis->sismember("post:{$this->id}:complaints", $user->getId());
     }

@@ -2,7 +2,7 @@
 return [
     'adminEmail' => 'admin@example.com',
     
-    'maxFileSize' => 1024 * 1024 * 5,   // 2 megabytes
+    'maxFileSize' => 1024 * 1024 * 5,   // 5 megabytes
     'storagePath' => '@frontend/web/uploads/',
     'storageUri' => '/uploads/',    // example: http://images.com/uploads/f1/d7/739f9a9c9a99294.jpg
     

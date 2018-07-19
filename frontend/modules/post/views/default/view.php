@@ -50,9 +50,9 @@ $this->title = 'Post';
                             </div>
                             <div class="post-report">
                                 <?php if (!$post->isReported($currentUser)): ?>
-                                    <a href="#!" class="btn btn-default button-complain" data-id="<?php echo $post->id; ?>">
+<!--                                    <a href="#!" class="btn btn-default button-complain" data-id="<?php echo $post->id; ?>">
                                         Report post <i class="glyphicon glyphicon-refresh icon-preloader" style="display:none"></i>
-                                    </a>
+                                    </a>-->
                                 <?php else: ?>
                                     <p>Post has been reported</p>
                                 <?php endif; ?>
