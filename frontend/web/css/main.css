@@ -109,11 +109,17 @@
 }
 
 .page-posts .post-title {
-    font-size: 13pt;
+    font-size: 17px;
+}
+
+.page-posts .post-description {
+    font-size: 16px;
 }
 
 .post-create-form .load-picture-btn {
     position: absolute;
+    z-index: 2;
+
 }
 
 .post-create-form .load-picture-input {
@@ -121,10 +127,18 @@
     opacity: 0; 
     width: 100px; 
     height: 30px; 
-    position: relative; 
     margin-bottom: 12px;
 }
 
 .post-create-form .text-content-input {
     height: 200px;
+}
+
+.post-create-form .thumb {
+    height: 75px;
+    margin: 5px 5px 5px 5px;
+}
+
+.post-create-form #thumb-list {
+    display: inline;
 }

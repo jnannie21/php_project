@@ -1,5 +1,36 @@
 <?php
 
+//$er = new Redis();
+//$er->connect('127.0.0.1', 6379);
+//$er->sAdd('mdif:ss', 15);
+//var_dump($er->sMembers('mdif:ss'));
+//die;
+
+//$arr[0] = 0;
+//$arr[1] = 1;
+//$arr[6] = 6;
+//$arr[2] = 2;
+//
+//foreach ($arr as $el){
+//    echo $el.'<br>';
+//}
+//
+//die;
+
+//class t {
+//public $qq = 789;
+//}
+//
+//$r = new t();
+//echo $r->qq;
+//die;
+
+//$var1 = 12;
+//$var2 = 23;
+//$var3 = $var1 || $var2;
+//echo $var3;
+//die;
+
 //phpinfo();
 //die;
 

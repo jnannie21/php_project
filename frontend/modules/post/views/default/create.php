@@ -11,10 +11,14 @@ use yii\helpers\Html;
     <h3>Create post</h3>
 
     <?php $form = ActiveForm::begin(); ?>
+
+        <label>
+            <?= '<div class="load-picture-btn btn btn-default">Add picture</div>' ?>
+            <?php echo $form->field($model, 'picture[]')->label(false)->fileInput(['class' => 'load-picture-input', 'multiple' => 'multiple']); ?>
+        </label>
     
-        <?= '<div class="load-picture-btn btn btn-default">Load picture</div>' ?>
-    
-        <?php echo $form->field($model, 'picture')->label(false)->fileInput(['class' => 'load-picture-input']); ?>
+        <output id="thumb-list">
+        </output>
     
         <?php echo $form->field($model, 'description')->textarea(['class' => 'form-control text-content-input']); ?>
     
@@ -23,3 +27,6 @@ use yii\helpers\Html;
     <?php ActiveForm::end(); ?>
     
 </div>
+
+<?php
+$this->registerJsFile('@web/js/postformThumbnails.js');

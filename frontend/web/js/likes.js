@@ -1,4 +1,4 @@
-$(document).ready(function () {
+$(function () {
     $('a.button-like').click(function () {
         var button = $(this);
         var span = button.find('.glyphicon');
