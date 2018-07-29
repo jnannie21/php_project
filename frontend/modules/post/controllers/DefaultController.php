@@ -9,6 +9,7 @@ use yii\web\UploadedFile;
 use frontend\models\Post;
 use frontend\modules\post\models\forms\PostForm;
 use yii\web\NotFoundHttpException;
+use frontend\modules\post\models\forms\CommentForm;
 
 /**
  * Default controller for the `post` module
@@ -48,13 +49,20 @@ class DefaultController extends Controller
      * @return string
      */
     public function actionView($id)
-    {        
+    {
         /* @var $currentUser \frontend\models\User */
-        $currentUser = Yii::$app->user->identity;    
+        $currentUser = Yii::$app->user->identity;
+        
+        $model = new CommentForm();
+
+        $post = $this->findPost($id);
+        $comments = $post->comments;    //lazy fashion access 
         
         return $this->render('view', [
-            'post' => $this->findPost($id),
+            'post' => $post,
+            'comments' => $comments,
             'currentUser' => $currentUser,
+            'model' => $model,
         ]);
     }
     
@@ -140,4 +148,36 @@ class DefaultController extends Controller
             'text' => 'Error',
         ];
     }
+    
+    /**
+     * Renders the create view for the module
+     * @return string
+     */
+    public function actionAddComment()
+    {        
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(['/user/default/login']);
+        }
+        
+        /* @var $currentUser \frontend\models\User */
+        $currentUser = Yii::$app->user->identity;
+        
+        $model = new CommentForm($currentUser);
+        
+        if ($model->load(Yii::$app->request->post())) {
+            
+            $model->picture = UploadedFile::getInstance($model, 'picture[0]');
+        
+            if ($model->save()) {
+                
+                return $this->renderAjax('comment', [
+                    'currentUser' => $currentUser,
+                    'comment' => $model->comment,
+                ]);
+            }
+        }
+        $errors = $model->getErrors();
+        return $this->asJson(['success' => false, 'errors' => $errors ? $errors : ['database' => 'can\'t save comment to database']]);
+    }
+    
 }

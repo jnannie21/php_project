@@ -5,17 +5,17 @@ namespace frontend\modules\post\models\forms;
 use Yii;
 use yii\base\Model;
 use frontend\models\Post;
-use frontend\models\User;
+//use frontend\models\User;
 use Intervention\Image\ImageManager;
-use frontend\models\events\PostCreatedEvent;
+//use frontend\models\events\PostCreatedEvent;
 
 class PostForm extends Model
 {
 
-    const MAX_DESCRIPTION_LENGHT = 1000;
+    const MAX_DESCRIPTION_LENGHT = 10000;
     
     /**
-     * @var yii\web\UploadedFile uploaded picture
+     * @var \yii\web\UploadedFile uploaded picture
      */
     public $picture;
     
@@ -25,7 +25,7 @@ class PostForm extends Model
     public $description;
     
     /**
-     * @var frontend\models\User Yii::$app->user->identity
+     * @var \frontend\models\User Yii::$app->user->identity
      */
     private $user;
 
@@ -45,9 +45,9 @@ class PostForm extends Model
     }
     
     /**
-     * @param User $user
+     * @param \frontend\models\User $user
      */
-    public function __construct(User $user)
+    public function __construct(\frontend\models\User $user)
     {
         $this->user = $user;
         $this->on(self::EVENT_AFTER_VALIDATE, [$this, 'resizePicture']);
@@ -77,12 +77,12 @@ class PostForm extends Model
     public function save() {
         if ($this->validate()) {
             $post = new Post();
-            $post->description = $this->description;
-            $post->created_at = time();
-            $post->filename = Yii::$app->storage->saveUploadedFile($this->picture);
             $post->author_id = $this->user->getId();
             $post->author_name = $this->user->username;
             $post->author_picture = $this->user->picture;
+            $post->filename = Yii::$app->storage->saveUploadedFile($this->picture);
+            $post->description = $this->description;
+            $post->created_at = time();
             if ($post->save(false)) {
                 $this->user->sendFeed($post);
                 return true;

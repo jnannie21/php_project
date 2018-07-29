@@ -1,73 +1,91 @@
 <?php
+
 namespace frontend\models;
 
 use Yii;
 use frontend\models\User;
-use frontend\models\Comment;
+use frontend\models\Post;
 
 /**
- * This is the model class for table "post".
+ * This is the model class for table "comment".
  *
- * @property integer $id
- * @property integer $author_id
+ * @property int $id
+ * @property int $post_id
+ * @property int $author_id
  * @property string $author_name
  * @property string $author_picture
  * @property string $filename
- * @property string $description
- * @property integer $created_at
- * 
- * @property Comment $comments
- * @property User $user
+ * @property string $content
+ * @property int $created_at
+ * @property int $parent_id
+ * @property int $rating
+ *
+ * @property User $author
+ * @property Comment $parent
+ * @property Comment[] $comments
+ * @property Post $post
  */
-class Post extends \yii\db\ActiveRecord
+class Comment extends \yii\db\ActiveRecord
 {
-
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public static function tableName()
     {
-        return 'post';
+        return 'comment';
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function attributeLabels()
     {
         return [
             'id' => 'ID',
-            'author_name' => 'Author name',
-            'author_picture' => 'Author picture',
+            'post_id' => 'Post ID',
             'author_id' => 'Author ID',
+            'author_name' => 'Author Name',
+            'author_picture' => 'Author Picture',
             'filename' => 'Filename',
-            'description' => 'Description',
+            'content' => 'Content',
             'created_at' => 'Created At',
+            'parent_id' => 'Parent ID',
+            'rating' => 'Rating',
         ];
     }
 
     /**
-     * Get author of the post
-     * @return User|null
+     * @return \yii\db\ActiveQuery
      */
-    public function getUser()
+    public function getAuthor()
     {
-        return $this->hasOne(User::class, ['id' => 'author_id']);
-    }
-    
-    /**
-     * 
-     * @return \frontend\models\Comment
-     */
-    public function getComments()
-    {
-        return $this->hasMany(Comment::class, ['post_id' => 'id']);
+        return $this->hasOne(User::className(), ['id' => 'author_id']);
     }
 
     /**
-     * 
-     * @return string path to image, for example: /uploads/f1/d7/739f9a9c9a99294.jpg
+     * @return \yii\db\ActiveQuery
      */
+    public function getParent()
+    {
+        return $this->hasOne(Comment::className(), ['id' => 'parent_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getComments()
+    {
+        return $this->hasMany(Comment::className(), ['parent_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPost()
+    {
+        return $this->hasOne(Post::className(), ['id' => 'post_id']);
+    }
+    
     public function getImage()
     {
         return Yii::$app->storage->getFile($this->filename);
@@ -126,29 +144,5 @@ class Post extends \yii\db\ActiveRecord
         $redis = Yii::$app->redis;
         return $redis->sismember("post:{$this->getId()}:likes", $user->getId());
     }
-
-    /**
-     * Add complaint to post from given user
-     * @param \frontend\models\User $user
-     * @return boolean
-     */
-    public function complain(User $user)
-    {
-        /* @var $redis \yii\redis\Connection */
-        $redis = Yii::$app->redis;
-        $key = "post:{$this->getId()}:complaints";
-        
-        if (!$redis->sismember($key, $user->getId())) {
-            $redis->sadd($key, $user->getId());        
-            $this->complaints++;
-            return $this->save(false, ['complaints']);
-        }
-    }
     
-    public function isReported(User $user)
-    {
-        /* @var $redis \yii\redis\Connection */
-        $redis = Yii::$app->redis;
-        return $redis->sismember("post:{$this->id}:complaints", $user->getId());
-    }
 }

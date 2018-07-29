@@ -6,26 +6,35 @@ use yii\widgets\ActiveForm;
 use yii\helpers\Html;
 ?>
 
-<div class="post-create-form">
-    
+<div class="post-form">
+
     <h3>Create post</h3>
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php
+    $form = ActiveForm::begin();
+    ?>
+    <label for="postform-picture">
+        <?= '<div class="load-picture-btn btn btn-sm btn-default">Add picture</div>' ?>
+    </label>
+    <output class="thumb-list" id="thumb-list">
+    </output>
+    
+    <?php echo $form->field($model, 'picture[]', ['template' => "{input}"])->label(false)->fileInput(['class' => 'load-picture-input', 'multiple' => 'multiple']); ?>
 
-        <label>
-            <?= '<div class="load-picture-btn btn btn-default">Add picture</div>' ?>
-            <?php echo $form->field($model, 'picture[]')->label(false)->fileInput(['class' => 'load-picture-input', 'multiple' => 'multiple']); ?>
-        </label>
-    
-        <output id="thumb-list">
-        </output>
-    
-        <?php echo $form->field($model, 'description')->textarea(['class' => 'form-control text-content-input']); ?>
-    
-        <?php echo Html::submitButton('Create'); ?>
-    
+    <?php echo $form->field($model, 'description')->label(false)->textarea(['class' => 'form-control postform-text-content']); ?>
+
+    <?php echo Html::submitButton('Create'); ?>
+
+    <br><br>
+
+    <div contenteditable="true" style="width: 100%; height: 100px" placeholder="Leave a comment" class="form-control">
+        <!--                <blockquote>Текст</blockquote>-->
+        <span></span>
+
+    </div>
+
     <?php ActiveForm::end(); ?>
-    
+
 </div>
 
 <?php

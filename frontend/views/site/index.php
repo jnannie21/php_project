@@ -36,7 +36,7 @@ $this->title = 'Newsfeed';
                     <div class="post-title">
                         <p><?php echo HtmlPurifier::process($feedItem->description); ?></p>
                     </div>
-                    <div class="post-type-image">
+                    <div class="post-image">
                         <a href="<?php echo Url::to(['/post/default/view', 'id' => $feedItem->id]); ?>">
                             <img src="<?php echo Yii::$app->storage->getFile($feedItem->filename); ?>" alt="" />  
                         </a>
@@ -44,8 +44,8 @@ $this->title = 'Newsfeed';
                     <div class="post-description">
                         <p><?php echo HtmlPurifier::process($feedItem->description); ?></p>
                     </div>
-                    <div class="post-bottom">
-                        <div class="post-meta">
+                    <div class="info-block">
+                        <div class="info-author">
                             <img src="<?php echo Yii::$app->storage->getFile($feedItem->author_picture); ?>" class="author-image"/>
                             <div class="author-name">
                                 <a href="<?php echo Url::to(['/user/profile/view', 'username' => $feedItem->author_name]); ?>">
@@ -53,7 +53,7 @@ $this->title = 'Newsfeed';
                                 </a>
                             </div>
                         </div>
-                        <div class="post-likes">
+                        <div class="info-likes">
                             <a href="#!" class="button-like" data-id="<?php echo $feedItem->id; ?>">
                                 <?php echo ($currentUser->likesPost($feedItem->id)) ? "Unlike" : "Like"; ?>
                                 <span class="glyphicon <?php echo ($currentUser->likesPost($feedItem->id)) ? "glyphicon glyphicon-thumbs-down" : "glyphicon glyphicon-thumbs-up"; ?>"></span>
@@ -64,8 +64,8 @@ $this->title = 'Newsfeed';
                         <div class="post-comments">
                             <a href="#!">0 Comments</a>
                         </div>
-                        <div class="post-bottom-right">
-                            <div class="post-date">
+                        <div class="info-block-right">
+                            <div class="info-date">
                                 <span><?php echo Yii::$app->formatter->asDatetime($feedItem->created_at, 'php: j M Y h:i'); ?></span>    
                             </div>
                             <div class="post-report">

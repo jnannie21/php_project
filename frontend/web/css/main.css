@@ -48,97 +48,137 @@
 
 .post {
     padding-top: 10px;
-    margin-bottom: 50px;
+    margin-bottom: 20px;
     box-shadow: 0 0 1px rgba(0,0,0,0.1);
     background-color: rgba(255,255,255);
 }
 
-.page-posts .author-name,
-.page-posts .author-image {
+.info-block .author-name,
+.info-block .author-image {
     display: inline-block;
 }
 
-.page-posts .author-image {
+.info-block .author-image {
     display: inline-block;
     width: 30px;
     height: 30px;
     -webkit-border-radius: 25px;
     -moz-border-radius: 25px;
     border-radius: 25px;
-    margin: 0px 2px 10px 0px;
+    margin: 0px 2px 10px 5px;
 }
 
-.page-posts .post-likes,
-.page-posts .post-comments,
-.page-posts .post-date,
-.page-posts .post-report,
-.page-posts .post-bottom-right,
-.page-posts .post-meta {
+.info-block .info-likes,
+.info-block .post-comments,
+.info-block .info-date,
+.info-block .post-report,
+.info-block .info-block-right,
+.info-block .info-author {
     display: inline-block;
     margin-right: 10px;
 }
 
-.page-posts .post-title,
-.page-posts .post-description,
-.page-posts .post-bottom {
+.post .post-title,
+.post .post-description,
+.post .post-bottom {
     margin-left: 5px;
 }
 
-.page-posts .post-date {
+.info-block .info-date {
     font-size: 12px;
 }
 
-.page-posts .post-bottom-right {
+.info-block .info-block-right {
     float: right;
 }
 
-.page-posts .post-type-image img,
 .page-profile .profile-picture img {
     max-height: 100%;
     max-width: 100%;
-}
-
-.page-profile .profile-picture img{
     max-height: 200px;
 }
 
-.page-posts .post-likes .button-like,
-.page-posts .post-meta .author-name a {
+.info-block .info-likes .button-like,
+.info-block .info-author .author-name a,
+.info-block .post-comments a {
     color: #000;
     text-decoration: none;
 }
 
-.page-posts .post-title {
+.post .post-title {
     font-size: 17px;
 }
 
-.page-posts .post-description {
+.post .post-image img {
+    max-height: 100%;
+    max-width: 100%;
+}
+
+.post .post-description {
     font-size: 16px;
 }
 
-.post-create-form .load-picture-btn {
-    position: absolute;
-    z-index: 2;
+.post-form .load-picture-btn {
+    /*display: inline;*/
+/*    position: absolute;
+    z-index: 2;*/
 
 }
 
-.post-create-form .load-picture-input {
-    overflow: hidden; 
+.post-form .load-picture-input {
+/*    overflow: hidden; 
     opacity: 0; 
     width: 100px; 
     height: 30px; 
-    margin-bottom: 12px;
+    margin-bottom: 2px;*/
+    display: none;
 }
 
-.post-create-form .text-content-input {
+.post-form .postform-text-content {
     height: 200px;
 }
 
-.post-create-form .thumb {
+.post-form .thumb {
     height: 75px;
     margin: 5px 5px 5px 5px;
 }
 
-.post-create-form #thumb-list {
+.post-form .thumb-list {
     display: inline;
+}
+
+[contenteditable]:focus {
+    outline: 0px solid transparent;
+}
+
+.comment-form [contentEditable=true]:empty:not(:focus):before{
+    content:attr(data-placeholder);
+}
+
+.comment-form .load-picture-input {
+    display: none;
+}
+
+.comment-form .thumb {
+    height: 75px;
+    margin: 5px 5px 5px 5px;
+}
+
+.comment-form .thumb-list {
+    display: inline;
+}
+
+/*.comment-form [contentEditable=true]:empty:before {
+  content:attr(data-placeholder);
+  color:gray
+}*/
+
+.comment-form .comment-form__send-btn {
+    /*margin-bottom: 5px;*/
+    /*display: inline;*/
+}
+
+.comment-form .comment-form__text-content {
+    width: 100%;
+    height: 60px;
 }
