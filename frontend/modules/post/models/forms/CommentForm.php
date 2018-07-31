@@ -61,6 +61,7 @@ class CommentForm extends Model
                 'extensions' => ['jpg', 'png'],
                 'checkExtensionByMimeType' => true,
                 'maxSize' => $this->getMaxFileSize()],
+            [['content'], 'required', 'when' => function($model) { return $model->picture ? false : true; }, 'message' => 'Comment can\'t be empty'],
             [['content'], 'string', 'max' => self::MAX_DESCRIPTION_LENGHT],
         ];
     }
@@ -103,7 +104,11 @@ class CommentForm extends Model
             $comment->author_id = $this->user->getId();
             $comment->author_name = $this->user->username;
             $comment->author_picture = $this->user->picture;
-            $comment->filename = $this->picture ? Yii::$app->storage->saveUploadedFile($this->picture) : null;
+            
+            /* @var $storage \frontend\components\Storage */
+            $storage = Yii::$app->storage;
+            $comment->filename = $this->picture ? $storage->saveUploadedFile($this->picture) : null;
+            
             $comment->content = $this->content;
             $comment->created_at = time();
             $comment->parent_id = $this->parent_id;

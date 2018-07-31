@@ -38,7 +38,7 @@ class Storage extends Component implements StorageInterface
      */
     protected function preparePath(UploadedFile $file)
     {
-        $this->fileName = $this->getFileName($file);  
+        $this->fileName = $this->getFileName($file);
         //     0c/a9/277f91e40054767f69afeb0426711ca0fddd.jpg
         
         $path = $this->getStoragePath() . $this->fileName;

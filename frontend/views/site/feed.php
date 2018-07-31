@@ -11,8 +11,7 @@ use yii\helpers\HtmlPurifier;
 $this->title = 'Newsfeed';
 ?>
 
-<div class="page-posts">
-    <div class="right-row-posts">
+    <div class="right-row">
         <div class="right-field-posts">
             It's a right-row column.
         </div>
@@ -50,7 +49,6 @@ $this->title = 'Newsfeed';
 <?php endif; ?>
 
     </div>
-</div>
 
 
 

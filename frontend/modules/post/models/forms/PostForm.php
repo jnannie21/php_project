@@ -36,11 +36,12 @@ class PostForm extends Model
     {
         return [
             [['picture'], 'file',
-                'skipOnEmpty' => false,
+                'skipOnEmpty' => true,
                 'extensions' => ['jpg', 'png'],
                 'checkExtensionByMimeType' => true,
                 'maxSize' => $this->getMaxFileSize()],
             [['description'], 'string', 'max' => self::MAX_DESCRIPTION_LENGHT],
+            [['description'], 'required', 'when' => function($model) { return $model->picture ? false : true; }, 'message' => 'Post can\'t be empty'],
         ];
     }
     
@@ -80,7 +81,11 @@ class PostForm extends Model
             $post->author_id = $this->user->getId();
             $post->author_name = $this->user->username;
             $post->author_picture = $this->user->picture;
-            $post->filename = Yii::$app->storage->saveUploadedFile($this->picture);
+            
+            /* @var $storage \frontend\components\Storage */
+            $storage = Yii::$app->storage;
+            $post->filename = $this->picture ? $storage->saveUploadedFile($this->picture) : null;
+            
             $post->description = $this->description;
             $post->created_at = time();
             if ($post->save(false)) {

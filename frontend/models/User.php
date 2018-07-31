@@ -299,7 +299,7 @@ class User extends ActiveRecord implements IdentityInterface {
     }
     
     /**
-     * Get data for feed
+     * Get posts for feed
      * @param integer $limit
      * @return array
      */

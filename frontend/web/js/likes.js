@@ -3,7 +3,7 @@ $(function () {
         var button = $(this);
         var span = button.find('.glyphicon');
         var params = {
-            'id': $(this).attr('data-id')
+            'id': button.attr('data-id')
         };
 
         if (span.hasClass('glyphicon glyphicon-thumbs-up')) {

@@ -2,6 +2,10 @@
     display: none;
 }
 
+[contenteditable]:focus {
+    outline: 0px solid transparent;
+}
+
 .wrap {
     background-color: rgba(250,250,250);
 }
@@ -23,11 +27,12 @@
     .container {
         width: 970px;
     }
-    .row-posts {
+    .row-posts,
+    .post-with-comments {
         float: left;
         width: 700px;
     }
-    .right-row-posts {
+    .right-row {
         float: right;
         width: 220px;
     }
@@ -41,41 +46,25 @@
 }
 
 @media (max-width: 970px) {
-    .right-row-posts {
+    .right-row {
         display: none;
     }
 }
 
-.post {
+.row-posts .post {
     padding-top: 10px;
-    margin-bottom: 20px;
+    padding-bottom: 10px;
+    margin-bottom: 40px;
     box-shadow: 0 0 1px rgba(0,0,0,0.1);
     background-color: rgba(255,255,255);
 }
 
-.info-block .author-name,
-.info-block .author-image {
-    display: inline-block;
-}
-
-.info-block .author-image {
-    display: inline-block;
-    width: 30px;
-    height: 30px;
-    -webkit-border-radius: 25px;
-    -moz-border-radius: 25px;
-    border-radius: 25px;
-    margin: 0px 2px 10px 5px;
-}
-
-.info-block .info-likes,
-.info-block .post-comments,
-.info-block .info-date,
-.info-block .post-report,
-.info-block .info-block-right,
-.info-block .info-author {
-    display: inline-block;
-    margin-right: 10px;
+.post-with-comments .post {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-bottom: 3px;
+    box-shadow: 0 0 1px rgba(0,0,0,0.1);
+    background-color: rgba(255,255,255);
 }
 
 .post .post-title,
@@ -84,29 +73,10 @@
     margin-left: 5px;
 }
 
-.info-block .info-date {
-    font-size: 12px;
-}
-
-.info-block .info-block-right {
-    float: right;
-}
-
-.page-profile .profile-picture img {
-    max-height: 100%;
-    max-width: 100%;
-    max-height: 200px;
-}
-
-.info-block .info-likes .button-like,
-.info-block .info-author .author-name a,
-.info-block .post-comments a {
+.post .post-title a{
+    font-size: 18px;
     color: #000;
     text-decoration: none;
-}
-
-.post .post-title {
-    font-size: 17px;
 }
 
 .post .post-image img {
@@ -116,6 +86,60 @@
 
 .post .post-description {
     font-size: 16px;
+    margin-bottom: 20px;
+}
+
+.info-block {
+    margin-left: 5px;
+    margin-bottom: 2px;
+    font-size: 13px;
+}
+
+.info-block .author-name,
+.info-block .author-image {
+    display: inline-block;
+}
+
+.info-block .author-image {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    -webkit-border-radius: 25px;
+    -moz-border-radius: 25px;
+    border-radius: 25px;
+    margin: 0px 0px;
+}
+
+.info-block .info-author,
+.info-block .info-likes,
+.info-block .info-comments,
+.info-block .comment-reply,
+/*.info-block .info-block-right,*/
+/*.info-block .post-report, */
+.info-block .info-date {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+/*.info-block .info-date {
+    font-size: 12px;
+}*/
+
+.info-block .info-block-right {
+    float: right;
+}
+
+.info-block .info-likes .button-like,
+.info-block .info-author .author-name a,
+.info-block .info-comments a {
+    color: #000;
+    text-decoration: none;
+}
+
+.page-profile .profile-picture img {
+    max-height: 100%;
+    max-width: 100%;
+    max-height: 200px;
 }
 
 .post-form .load-picture-btn {
@@ -125,7 +149,7 @@
 
 }
 
-.post-form .load-picture-input {
+.post-form .field-postform-picture {
 /*    overflow: hidden; 
     opacity: 0; 
     width: 100px; 
@@ -147,15 +171,15 @@
     display: inline;
 }
 
-[contenteditable]:focus {
-    outline: 0px solid transparent;
+.comment-form {
+    margin-bottom: 40px;
 }
 
 .comment-form [contentEditable=true]:empty:not(:focus):before{
     content:attr(data-placeholder);
 }
 
-.comment-form .load-picture-input {
+.comment-form .field-commentform-picture {
     display: none;
 }
 
@@ -180,5 +204,46 @@
 
 .comment-form .comment-form__text-content {
     width: 100%;
-    height: 60px;
+    min-height: 60px;
+    height: 100%;
+    margin-bottom: 1px;
 }
+
+.comment-form .help-block {
+    margin: 0px 0px 0px 0px;
+    color: red;
+}
+
+.comment {
+    margin-bottom: 30px;
+}
+
+.comment .btn-reply {
+    color: #000;
+    text-decoration: none;
+}
+
+.comment .comment-content,
+.comment .comment-image{
+    margin: 0px 0px 0px 14px;
+}
+
+.comment .comment-image img{
+    max-width: 100%;
+    overflow: hidden;
+}
+
+/*.comment .comment-reply {
+    margin-left: 5px;
+    font-size: 13px;
+}*/
+
+/*.comment .info-block {
+    font-size: 13px;
+}*/
+
+/*.comment .comment-reply {
+    color: #000;
+    text-decoration: none;
+    margin-bottom: 10px;
+}*/

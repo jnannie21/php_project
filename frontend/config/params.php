@@ -11,7 +11,7 @@ return [
         'maxHeight' => 705,
     ],
     
-    'feedPostLimit' => 200,
+    'feedPostLimit' => 15,
     
     /**
      * time to live for posts in feed in seconds = 7 days = 7*24*3600

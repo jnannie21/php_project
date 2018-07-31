@@ -1,5 +1,23 @@
 <?php
 
+//try {
+//    throw new Exception('ppp');
+//}
+//catch (Except $e) {
+//    echo $e->getMessage();
+//}
+//catch (Exception $e) {
+//    echo '13';
+//}
+//
+//die;
+//$er = 12;
+
+//if (true){
+//    echo $er;
+//}
+//die;
+
 //$er = new Redis();
 //$er->connect('127.0.0.1', 6379);
 //$er->sAdd('mdif:ss', 15);

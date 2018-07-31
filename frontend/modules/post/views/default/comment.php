@@ -6,17 +6,9 @@
 use yii\helpers\Url;
 use yii\helpers\Html;
 use yii\helpers\HtmlPurifier;
-
 ?>
 
-
-
-    <?php if ($comment->filename): ?>
-    <div class="post-type-image">
-        <img src="<?php echo $comment->getImage(); ?>" alt="" />
-    </div>
-    <?php endif; ?>
-    
+<div class="comment">
     <div class="info-block">
         <div class="info-author">
             <img src="<?php echo Yii::$app->storage->getFile($comment->author_picture); ?>" class="author-image"/>
@@ -28,12 +20,29 @@ use yii\helpers\HtmlPurifier;
         </div>
         <div class="info-likes">
             <a href="#!" class="button-like" data-id="<?php echo $comment->id; ?>">
-                <?php echo ($currentUser->likesPost($comment->id)) ? "Unlike" : "Like"; ?>
-                <span class="glyphicon <?php echo ($currentUser->likesPost($comment->id)) ? "glyphicon glyphicon-thumbs-down" : "glyphicon glyphicon-thumbs-up"; ?>"></span>
+                <?php
+                if ($currentUser && $currentUser->likesPost($comment->id))
+                    echo "Unlike";
+                else
+                    echo "Like";
+                ?>
+                <span class="glyphicon <?php
+                if ($currentUser && $currentUser->likesPost($comment->id))
+                    echo "glyphicon-thumbs-down";
+                else
+                    echo "glyphicon-thumbs-up";
+                ?>"></span>
             </a>
 
             <span class="likes-count"><?php echo $comment->countLikes(); ?></span>
         </div>
+
+
+        <div class="comment-reply">
+            <a href="#!" class="btn-reply" data-id="<?php echo $comment->id; ?>">Reply
+            </a>
+        </div>
+
         <div class="info-block-right">
             <div class="info-date">
                 <span><?php echo Yii::$app->formatter->asDatetime($comment->created_at, 'php: j M Y h:i'); ?></span>    
@@ -41,7 +50,13 @@ use yii\helpers\HtmlPurifier;
         </div>
     </div>
 
-    <div class="comment-content">
-        <p><?php echo HtmlPurifier::process($comment->content); ?></p>
+    <?php if ($comment->filename): ?>
+    <div class="comment-image">
+        <img src="<?php echo $comment->getImage(); ?>" alt="" />
     </div>
-    <br>
+    <?php endif; ?>
+
+    <div class="comment-content">
+        <?php echo HtmlPurifier::process($comment->content); ?>
+    </div>
+</div>

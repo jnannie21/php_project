@@ -19,19 +19,19 @@ use yii\helpers\Html;
     <output class="thumb-list" id="thumb-list">
     </output>
     
-    <?php echo $form->field($model, 'picture[]', ['template' => "{input}"])->label(false)->fileInput(['class' => 'load-picture-input', 'multiple' => 'multiple']); ?>
+    <?php echo $form->field($model, 'picture[]', ['template' => "{input}"])->label(false)->fileInput(['class' => 'load-picture-input', 'multiple' => true]); ?>
 
     <?php echo $form->field($model, 'description')->label(false)->textarea(['class' => 'form-control postform-text-content']); ?>
 
     <?php echo Html::submitButton('Create'); ?>
 
     <br><br>
-
+<!--
     <div contenteditable="true" style="width: 100%; height: 100px" placeholder="Leave a comment" class="form-control">
-        <!--                <blockquote>Текст</blockquote>-->
+                        <blockquote>Текст</blockquote>
         <span></span>
 
-    </div>
+    </div>-->
 
     <?php ActiveForm::end(); ?>
 

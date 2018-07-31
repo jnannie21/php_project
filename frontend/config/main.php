@@ -19,6 +19,10 @@ return [
             'class' => 'frontend\modules\post\Module',
         ],
     ],
+    'aliases' => [
+        '@user' => '@app/modules/user',
+        '@post'   => '@app/modules/post',
+    ],
     'components' => [
         'request' => [
             'csrfParam' => '_csrf-frontend',

@@ -54,9 +54,9 @@ class DefaultController extends Controller
         $currentUser = Yii::$app->user->identity;
         
         $model = new CommentForm();
-
         $post = $this->findPost($id);
-        $comments = $post->comments;    //lazy fashion access 
+        
+        $comments = $post->comments;    //lazy fashion access to related comments
         
         return $this->render('view', [
             'post' => $post,
@@ -170,10 +170,12 @@ class DefaultController extends Controller
         
             if ($model->save()) {
                 
-                return $this->renderAjax('comment', [
+                $response = $this->renderAjax('comment', [
                     'currentUser' => $currentUser,
                     'comment' => $model->comment,
                 ]);
+                
+                return $this->asJson(['success' => true, 'response' => $response]);
             }
         }
         $errors = $model->getErrors();

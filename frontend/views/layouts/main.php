@@ -38,7 +38,7 @@ AppAsset::register($this);
     ]);
     $menuItems = [
         ['label' => 'Home', 'url' => ['/site/index']],
-        ['label' => 'Users', 'url' => ['/site/users']],
+        ['label' => 'Feed', 'url' => ['/site/feed']],
     ];
         
     $route = Yii::$app->controller->getRoute();
