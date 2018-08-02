@@ -31,7 +31,7 @@ use yii\helpers\HtmlPurifier;
         </div>
     </div>
     <div class="info-likes">
-        <a href="#!" class="button-like" data-id="<?php echo $post->id; ?>">
+        <a href="#!" class="button-like" data-entity="post" data-id="<?php echo $post->id; ?>">
             <?php if ($currentUser && $currentUser->likesPost($post->id))
                 echo 'Unlike';
             else
@@ -47,7 +47,7 @@ use yii\helpers\HtmlPurifier;
         <span class="likes-count"><?php echo $post->countLikes(); ?></span>
     </div>
     <div class="info-comments">
-        <a href="<?php echo Url::to(['/post/default/view', 'id' => $post->id]); ?>">0 Comments</a>
+        <a href="<?php echo Url::to(['/post/default/view', 'id' => $post->id]); ?>"><?php echo $post->comments_count ?> Comment(s)</a>
     </div>
     <div class="info-block-right">
         <div class="info-date">

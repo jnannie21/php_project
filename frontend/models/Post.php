@@ -15,6 +15,7 @@ use frontend\models\Comment;
  * @property string $filename
  * @property string $description
  * @property integer $created_at
+ * @property integer $comments_count
  * 
  * @property Comment $comments
  * @property User $user
@@ -43,6 +44,7 @@ class Post extends \yii\db\ActiveRecord
             'filename' => 'Filename',
             'description' => 'Description',
             'created_at' => 'Created At',
+            'comments_count' => 'Comments count'
         ];
     }
 
@@ -82,19 +84,19 @@ class Post extends \yii\db\ActiveRecord
         /* @var $redis \yii\redis\Connection */
         $redis = Yii::$app->redis;
         $redis->sadd("post:{$this->getId()}:likes", $user->getId());
-        $redis->sadd("user:{$user->getId()}:likes", $this->getId());
+        $redis->sadd("user:{$user->getId()}:postLikes", $this->getId());
     }
     
     /**
      * Unlike current post by given user
      * @param \frontend\models\User $user
      */
-    public function unLike(User $user)
+    public function unlike(User $user)
     {
         /* @var $redis \yii\redis\Connection */
         $redis = Yii::$app->redis;
         $redis->srem("post:{$this->getId()}:likes", $user->getId());
-        $redis->srem("user:{$user->getId()}:likes", $this->getId());
+        $redis->srem("user:{$user->getId()}:postLikes", $this->getId());
     }
     
     /**

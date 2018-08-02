@@ -1,5 +1,64 @@
 <?php
 
+//function func(){
+//    echo $var123;
+//}
+//
+//$var123 = 667;
+//func($var123, 'jdsklf');
+//die;
+
+
+//function func($qwe){
+////    $ui = $qwe[0].'::'.$qwe[1];
+////    $ui();
+//    $qwe[0] -> {$qwe[1]}();
+//}
+//
+//class cl {
+//    function func2(){
+//        echo 13;
+//    }
+//}
+//
+//
+//$as = 12;
+//
+//$f = function () use($as){
+//    echo $as;
+//};
+//
+////$f();
+//
+//$kk = new cl();
+////$kk -> func2();
+//
+//func([$kk, 'func2']);
+//
+//die;
+
+
+
+//class cl {
+//    static function func(){
+//        echo '123';
+//    }
+//}
+//
+//$vaar = 'cl';
+//cl::func();
+//$vaar::func();
+//die;
+
+//$dbh = new PDO('mysql:host=localhost;dbname=test', $user, $pass);
+//$stmt = $dbh->prepare ("INSERT INTO user (firstname, surname) VALUES (:f-name, :s-name)");
+
+//use yii\helpers\HtmlPurifier;
+//
+//$new = htmlspecialchars('<a href"test">Test</a>', ENT_QUOTES);
+//echo $new.'<br>'; // &lt;a href=&#039;test&#039;&gt;Test&lt;/a&gt;
+////echo HtmlPurifier::process('<a href"test">Test</a>');
+//die;
 //try {
 //    throw new Exception('ppp');
 //}

@@ -19,15 +19,15 @@ use yii\helpers\HtmlPurifier;
             </div>
         </div>
         <div class="info-likes">
-            <a href="#!" class="button-like" data-id="<?php echo $comment->id; ?>">
+            <a href="#!" class="button-like" data-entity="comment" data-id="<?php echo $comment->id; ?>">
                 <?php
-                if ($currentUser && $currentUser->likesPost($comment->id))
+                if ($currentUser && $currentUser->likesComment($comment->id))
                     echo "Unlike";
                 else
                     echo "Like";
                 ?>
                 <span class="glyphicon <?php
-                if ($currentUser && $currentUser->likesPost($comment->id))
+                if ($currentUser && $currentUser->likesComment($comment->id))
                     echo "glyphicon-thumbs-down";
                 else
                     echo "glyphicon-thumbs-up";

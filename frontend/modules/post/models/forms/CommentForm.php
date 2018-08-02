@@ -108,14 +108,18 @@ class CommentForm extends Model
             /* @var $storage \frontend\components\Storage */
             $storage = Yii::$app->storage;
             $comment->filename = $this->picture ? $storage->saveUploadedFile($this->picture) : null;
-            
             $comment->content = $this->content;
             $comment->created_at = time();
             $comment->parent_id = $this->parent_id;
-            if ($comment->save(false)) {
-                $this->comment = $comment;
-                return true;
-            }
+            $comment->post->comments_count++;
+            $this->comment = $comment;
+            
+            return Yii::$app->getDb()->transaction(function($db) use ($comment) {
+                if ($comment->save(false) && $comment->post->save(false, ['comments_count'])) {
+                    return true;
+                }
+                return false;
+            });
         }
         return false;
     }

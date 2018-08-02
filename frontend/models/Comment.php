@@ -99,20 +99,20 @@ class Comment extends \yii\db\ActiveRecord
     {
         /* @var $redis \yii\redis\Connection */
         $redis = Yii::$app->redis;
-        $redis->sadd("post:{$this->getId()}:likes", $user->getId());
-        $redis->sadd("user:{$user->getId()}:likes", $this->getId());
+        $redis->sadd("comment:{$this->getId()}:likes", $user->getId());
+        $redis->sadd("user:{$user->getId()}:commentLikes", $this->getId());
     }
     
     /**
      * Unlike current post by given user
      * @param \frontend\models\User $user
      */
-    public function unLike(User $user)
+    public function unlike(User $user)
     {
         /* @var $redis \yii\redis\Connection */
         $redis = Yii::$app->redis;
-        $redis->srem("post:{$this->getId()}:likes", $user->getId());
-        $redis->srem("user:{$user->getId()}:likes", $this->getId());
+        $redis->srem("comment:{$this->getId()}:likes", $user->getId());
+        $redis->srem("user:{$user->getId()}:commentLikes", $this->getId());
     }
     
     /**
@@ -130,7 +130,7 @@ class Comment extends \yii\db\ActiveRecord
     {
         /* @var $redis \yii\redis\Connection */
         $redis = Yii::$app->redis;
-        return $redis->scard("post:{$this->getId()}:likes");
+        return $redis->scard("comment:{$this->getId()}:likes");
     }
     
     /**

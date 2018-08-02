@@ -207,11 +207,18 @@
     min-height: 60px;
     height: 100%;
     margin-bottom: 1px;
+    padding-bottom: 30px;
 }
 
 .comment-form .help-block {
     margin: 0px 0px 0px 0px;
     color: red;
+}
+
+.comment-form img {
+    max-width: 300px;
+    max-height: 200px;
+    overflow: hidden;
 }
 
 .comment {
@@ -229,7 +236,8 @@
 }
 
 .comment .comment-image img{
-    max-width: 100%;
+    max-width: 300px;
+    max-height: 200px;
     overflow: hidden;
 }
 

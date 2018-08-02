@@ -7,6 +7,7 @@ use yii\web\Controller;
 use yii\web\Response;
 use yii\web\UploadedFile;
 use frontend\models\Post;
+use frontend\models\Comment;
 use frontend\modules\post\models\forms\PostForm;
 use yii\web\NotFoundHttpException;
 use frontend\modules\post\models\forms\CommentForm;
@@ -54,76 +55,23 @@ class DefaultController extends Controller
         $currentUser = Yii::$app->user->identity;
         
         $model = new CommentForm();
-        $post = $this->findPost($id);
+        $post = Post::findOne($id);
         
-        $comments = $post->comments;    //lazy fashion access to related comments
-        
-        return $this->render('view', [
-            'post' => $post,
-            'comments' => $comments,
-            'currentUser' => $currentUser,
-            'model' => $model,
-        ]);
-    }
-    
-    public function actionLike()
-    {
-        if (Yii::$app->user->isGuest) {
-            return $this->redirect(['/user/default/login']);
-        }
-        
-        Yii::$app->response->format = Response::FORMAT_JSON;
-        
-        $id = Yii::$app->request->post('id');
-        $post = $this->findPost($id);
-        
-        /* @var $currentUser \frontend\models\User */
-        $currentUser = Yii::$app->user->identity;        
-        
-        $post->like($currentUser);
+        if ($post) {
+            $comments = $post->comments;    //lazy fashion access to related comments
 
-        return [
-            'success' => true,
-            'likesCount' => $post->countLikes(),
-        ];     
-    }
-
-    public function actionUnlike()
-    {
-        if (Yii::$app->user->isGuest) {
-            return $this->redirect(['/user/default/login']);
-        }
-
-        Yii::$app->response->format = Response::FORMAT_JSON;
-
-        $id = Yii::$app->request->post('id');
-
-        /* @var $currentUser \frontend\models\User */
-        $currentUser = Yii::$app->user->identity;
-        $post = $this->findPost($id);
-
-        $post->unLike($currentUser);
-
-        return [
-            'success' => true,
-            'likesCount' => $post->countLikes(),
-        ];
-    }
-
-    /**
-     * @param integer $id
-     * @return \frontend\models\Post
-     * @throws NotFoundHttpException
-     */
-    private function findPost($id)
-    {
-        if ($post = Post::findOne($id)) {
-            return $post;
+            return $this->render('view', [
+                'post' => $post,
+                'comments' => $comments,
+                'currentUser' => $currentUser,
+                'model' => $model,
+            ]);
         }
         throw new NotFoundHttpException();
     }
-
-    public function actionComplain()
+    
+    
+    public function actionRate()
     {
         if (Yii::$app->user->isGuest) {
             return $this->redirect(['/user/default/login']);
@@ -131,23 +79,21 @@ class DefaultController extends Controller
 
         Yii::$app->response->format = Response::FORMAT_JSON;
 
+        $entity = Yii::$app->request->post('entity');
+        $action = Yii::$app->request->post('action');
         $id = Yii::$app->request->post('id');
 
         /* @var $currentUser \frontend\models\User */
         $currentUser = Yii::$app->user->identity;
-        $post = $this->findPost($id);
-
-        if ($post->complain($currentUser)) {
-            return [
-                'success' => true,
-                'text' => 'Post reported'
-            ];
-        }
+        
+        $likesCount = $this->rateEntity($entity, $action, $id, $currentUser);
+        
         return [
-            'success' => false,
-            'text' => 'Error',
+            'success' => true,
+            'likesCount' => $likesCount,
         ];
     }
+
     
     /**
      * Renders the create view for the module
@@ -181,5 +127,49 @@ class DefaultController extends Controller
         $errors = $model->getErrors();
         return $this->asJson(['success' => false, 'errors' => $errors ? $errors : ['database' => 'can\'t save comment to database']]);
     }
+    
+    
+    public function rateEntity($entity, $action, $id, $currentUser) {
+        if ($entity == 'post') {
+            $obj = Post::findOne($id);
+        } else $obj = Comment::findOne($id);
+        
+        if ($obj) {
+            if ($action == 'like') {
+                $obj->like($currentUser);
+            } else $obj->unlike($currentUser);
+            
+            return $obj->countLikes();
+        }
+        
+        throw new NotFoundHttpException();
+    }
+    
+    
+//    public function actionComplain()
+//    {
+//        if (Yii::$app->user->isGuest) {
+//            return $this->redirect(['/user/default/login']);
+//        }
+//
+//        Yii::$app->response->format = Response::FORMAT_JSON;
+//
+//        $id = Yii::$app->request->post('id');
+//
+//        /* @var $currentUser \frontend\models\User */
+//        $currentUser = Yii::$app->user->identity;
+//        $post = $this->findPost($id);
+//
+//        if ($post->complain($currentUser)) {
+//            return [
+//                'success' => true,
+//                'text' => 'Post reported'
+//            ];
+//        }
+//        return [
+//            'success' => false,
+//            'text' => 'Error',
+//        ];
+//    }
     
 }

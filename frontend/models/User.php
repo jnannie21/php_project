@@ -321,7 +321,19 @@ class User extends ActiveRecord implements IdentityInterface {
     {
         /* @var $redis Connection */
         $redis = Yii::$app->redis;
-        return (bool) $redis->sismember("user:{$this->getId()}:likes", $postId);
+        return (bool) $redis->sismember("user:{$this->getId()}:postLikes", $postId);
+    }
+    
+    /**
+     * Check whether current user likes post with given id
+     * @param integer $postId
+     * @return boolean
+     */
+    public function likesComment(int $commentId)
+    {
+        /* @var $redis Connection */
+        $redis = Yii::$app->redis;
+        return (bool) $redis->sismember("user:{$this->getId()}:commentLikes", $commentId);
     }
     
     /**

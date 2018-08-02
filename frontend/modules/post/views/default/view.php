@@ -10,17 +10,17 @@ use yii\web\JqueryAsset;
 $this->title = 'Post';
 ?>
 
-    <div class="right-row">
-        <div class="right-field-posts">
-            It's a right-row column.
-        </div>
-        <div class="right-field-posts">
-            Here will be something very important.
-        </div>
-        <div class="right-field-posts">
-            Maybe login form.
-        </div>
+<div class="right-row">
+    <div class="right-field-posts">
+        It's a right-row column.
     </div>
+    <div class="right-field-posts">
+        Here will be something very important.
+    </div>
+    <div class="right-field-posts">
+        Maybe login form.
+    </div>
+</div>
 
 <div class="post-with-comments">
     
