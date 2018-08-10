@@ -112,7 +112,7 @@ class DefaultController extends Controller
         
         if ($model->load(Yii::$app->request->post())) {
             
-            $model->picture = UploadedFile::getInstance($model, 'picture[0]');
+            $model->pictures = UploadedFile::getInstances($model, 'pictures');
         
             if ($model->save()) {
                 

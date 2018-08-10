@@ -69,6 +69,9 @@ $this->title = 'Post';
 $this->registerJsFile('@web/js/likes.js', [
     'depends' => JqueryAsset::className(),
 ]);
+$this->registerJsFile('@web/js/commentFormThumbnails.js', [
+    'depends' => JqueryAsset::className(),
+]);
 $this->registerJsFile('@web/js/addComment.js', [
     'depends' => JqueryAsset::className(),
 ]);

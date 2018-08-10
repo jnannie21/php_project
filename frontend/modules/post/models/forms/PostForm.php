@@ -87,7 +87,7 @@ class PostForm extends Model
             $post->filename = $this->picture ? $storage->saveUploadedFile($this->picture) : null;
             
             $post->description = $this->description;
-            $post->created_at = time();
+            $post->created_at = time() + 10800; //+3 hours
             if ($post->save(false)) {
                 $this->user->sendFeed($post);
                 return true;

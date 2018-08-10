@@ -91,9 +91,16 @@ class SiteController extends Controller {
     }
     
     public function actionTest() {
-        $sql = 'select password_reset_token from user where id = 33694';
-        $result = Yii::$app->db->createCommand($sql)->queryAll();
-        var_dump($result[0]['password_reset_token'] === null);
-        die;
+
+//        $comment = new Comment();
+//
+//        var_dump($comment->attributes);
+//
+//        die;
+        
+//        $sql = 'select password_reset_token from user where id = 33694';
+//        $result = Yii::$app->db->createCommand($sql)->queryAll();
+//        var_dump($result[0]['password_reset_token'] === null);
+//        die;
     }
 }

@@ -1,5 +1,185 @@
 <?php
 
+
+//namespace asd;
+//
+//require '1.php';
+//
+//function func($fg){
+//    $fg();
+//}
+//
+//function df(){echo 12;}
+//
+//func('\asd\df');
+//
+//die;
+
+
+//class cl {
+//    public $var1 = 12;
+//}
+//
+//function func ($obj) {
+//    $obj->var1 = 13;
+//    return $obj;
+//}
+//
+//$vv = new cl();
+//
+//$tt = func($vv);
+//
+//echo $vv->var1;
+//
+//$tt->var1 = 87;
+//
+//echo $vv->var1;
+//
+//die;
+
+
+//$content = 'sf<div>dasf</div><div></div><img src="/uploads" ><img src="/" >';
+//$img = '{{img}}';
+//
+//$content = preg_replace('|<div></div>|U', $img, $content);
+//
+//echo $content;
+//
+//die;
+
+
+//namespace qwe;
+
+//function hello(){
+//    echo 'hi';
+//}
+//
+//
+////$cll = new \cl();
+////
+////$cll->func();
+//
+//\hello();
+
+//$var1 = 13;
+//require '1.php';
+//echo $var1;
+//
+//die;
+
+
+
+//class cl {
+//public $var1;
+//}
+//
+//function f($v) {
+//    $v->var1++;
+//}
+//
+//$c = new cl();
+//
+////f($c);
+//
+//var_dump($c->var1);
+//die;
+
+//$arr = [1,2,3];
+//
+//$var1 = 4;
+//
+////foreach ($arr as $el) {
+////    $var2 = 12;
+////    echo $var2.'<br>';
+////}
+//
+//if($var1) {
+//    $var2 = 13;
+//}
+//
+//echo $var2;
+//die;
+
+//class cl {
+//    public $c = 12;
+//}
+//
+//$arr[] = new cl();
+//
+//$var1 = 13;
+//
+//$arr[] = $var1;
+//
+//var_dump($arr);
+//die;
+
+
+
+//$str = 'hehehehehehe wjfdkls hello sla';
+////$str2 = 1;
+//
+//$count = substr_count($str, 'hehe');
+//echo $count;
+//
+//die;
+
+
+//$content = '<img src="/uploads/1f/24/13e3623631e79b8d0460997b62388de9a892.jpg" alt=""> <div > sjdf mxcmxcm </div> dsfdsf sdfkjskl <img >';
+//$content = '<img > <div > sjdf mxcmxcm </div> dsfdsf sdfkjskl <img >';
+//
+//        $content = preg_replace('|<img.*>|U', '{{img}}', $content, -1, $count);
+////        $content = preg_replace('|<div.*>|U', '', $content);
+////        $content = preg_replace('|</div.*>|U', '', $content);
+//
+//echo $content . '<br>' . $count;
+//
+//die;
+
+
+
+//$content = 'hello';
+//$content = str_replace('hello', 'gg', $content);
+//
+//echo $content;
+//
+//die;
+
+//$arr = 0;
+//
+//foreach ($arr as $elem) {
+//    echo 1;
+//}
+//die;
+
+
+
+//$ee = '123';
+//$rr = '456';
+//
+//echo $ee.$rr;
+//die;
+
+//$filename = 'dsafklasdjfkjaksdfadfasdf';
+//unlink($filename);
+//die;
+
+//if(true) {
+//    $var1 = 13;
+//}
+//
+//echo $var1;
+//
+//die;
+
+//$arr = array ();
+//var_dump($arr);
+//if ($arr) {
+//        echo 1;
+//}
+//
+//die;
+
+
 //function func(){
 //    echo $var123;
 //}

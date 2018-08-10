@@ -27,6 +27,8 @@ use frontend\models\Post;
  */
 class Comment extends \yii\db\ActiveRecord
 {
+    const HAS_PICTURES = 'true';
+    
     /**
      * {@inheritdoc}
      */
@@ -143,6 +145,5 @@ class Comment extends \yii\db\ActiveRecord
         /* @var $redis \yii\redis\Connection */
         $redis = Yii::$app->redis;
         return $redis->sismember("post:{$this->getId()}:likes", $user->getId());
-    }
-    
+    }    
 }

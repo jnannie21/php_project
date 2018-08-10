@@ -24,7 +24,7 @@ class Storage extends Component implements StorageInterface
      */
     public function saveUploadedFile(UploadedFile $file)
     {
-        $path = $this->preparePath($file); 
+        $path = $this->preparePath($file);
 
         if ($path && $file->saveAs($path)) {
             return $this->fileName;

@@ -18,9 +18,9 @@ use yii\helpers\Html;
     </label>
     <output class="thumb-list" id="thumb-list">
     </output>
-    
-    <?php echo $form->field($model, 'picture[]', ['template' => "{input}"])->label(false)->fileInput(['class' => 'load-picture-input', 'multiple' => true]); ?>
-
+    <div class="picture-input">
+        <?php echo $form->field($model, 'picture[]', ['template' => "{input}"])->label(false)->fileInput(['id' => 'postform-picture', 'multiple' => true]); ?>
+    </div>
     <?php echo $form->field($model, 'description')->label(false)->textarea(['class' => 'form-control postform-text-content']); ?>
 
     <?php echo Html::submitButton('Create'); ?>

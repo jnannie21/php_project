@@ -1,17 +1,20 @@
-<form>
-    <div>
-        one more field
-        
-    </div>
-
-    <div>
-        <div style="position: absolute; display: inline-block;">
-            загрузить
-        </div> 
-        
-        <input type="file" style="overflow: hidden; opacity: 0; width: 100px; position: relative;">
-    </div>
+<?php
+namespace qweq;
 
 
-</form>
-<?php die;
+
+
+
+//class cl {
+//    public function func(){
+//        echo '123';
+//    }
+//}
+//
+//function hello(){
+//    echo 'hello';
+//}
+//
+////$var1 = 14;
+//
+//echo $var1;

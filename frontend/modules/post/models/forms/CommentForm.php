@@ -6,7 +6,7 @@ use Yii;
 use yii\base\Model;
 use frontend\models\Comment;
 use frontend\models\Post;
-//use frontend\models\User;
+use frontend\models\CommentPicture;
 use Intervention\Image\ImageManager;
 
 class CommentForm extends Model
@@ -26,9 +26,15 @@ class CommentForm extends Model
     public $parent_id;
     
     /**
-     * @var \yii\web\UploadedFile uploaded picture
+     * @var \yii\web\UploadedFile[] uploaded pictures
      */
-    public $picture;
+    public $pictures;
+    
+    /**
+     *
+     * @var \frontend\models\CommentPicture[] array of ActiveRecord for pictures
+     */
+    public $commentPictures;
     
     /**
      * @var string text content of the comment
@@ -56,13 +62,16 @@ class CommentForm extends Model
             [['post_id', 'parent_id'], 'integer'],
             [['parent_id'], 'exist', 'skipOnError' => true, 'targetClass' => Comment::className(), 'targetAttribute' => ['parent_id' => 'id']],
             [['post_id'], 'exist', 'skipOnError' => true, 'targetClass' => Post::className(), 'targetAttribute' => ['post_id' => 'id']],
-            [['picture'], 'file',
+            [['pictures'], 'file',
                 'skipOnEmpty' => true,
+                'skipOnError' => true,
                 'extensions' => ['jpg', 'png'],
                 'checkExtensionByMimeType' => true,
+                'maxFiles' => 0,
                 'maxSize' => $this->getMaxFileSize()],
-            [['content'], 'required', 'when' => function($model) { return $model->picture ? false : true; }, 'message' => 'Comment can\'t be empty'],
+            [['content'], 'required'], //'when' => function($model) { return $model->pictures ? false : true; }, 'message' => 'Comment can\'t be empty'],
             [['content'], 'string', 'max' => self::MAX_DESCRIPTION_LENGHT],
+            [['content'], 'filter', 'filter'=> function($content) {return \yii\helpers\HtmlPurifier::process($content, ['HTML.Allowed' => 'img[src], div, br', 'Attr.DefaultImageAlt'=> 'Comment picture']);}],
         ];
     }
     
@@ -79,18 +88,21 @@ class CommentForm extends Model
      * Resize image if needed
      */
     public function resizePicture() {
-        if ($this->picture) {
-            $width = Yii::$app->params['postPicture']['maxWidth'];
-            $height = Yii::$app->params['postPicture']['maxHeight'];
+        if ($this->pictures) {
+            foreach ($this->pictures as $picture) {
+                if ($picture->error) {continue;}
+                $width = Yii::$app->params['postPicture']['maxWidth'];
+                $height = Yii::$app->params['postPicture']['maxHeight'];
 
-            $manager = new ImageManager(array('driver' => 'imagick'));
+                $manager = new ImageManager(array('driver' => 'imagick'));
 
-            $image = $manager->make($this->picture->tempName);     //    /tmp/12ty82
+                $image = $manager->make($picture->tempName);     //    /tmp/12ty82
 
-            $image->resize($width, $height, function ($constraint) {
-                $constraint->aspectRatio();
-                $constraint->upsize();
-            })->save();        //    /tmp/12ty82
+                $image->resize($width, $height, function ($constraint) {
+                    $constraint->aspectRatio();
+                    $constraint->upsize();
+                })->save();        //    /tmp/12ty82
+            }
         }
     }
 
@@ -105,21 +117,19 @@ class CommentForm extends Model
             $comment->author_name = $this->user->username;
             $comment->author_picture = $this->user->picture;
             
-            /* @var $storage \frontend\components\Storage */
-            $storage = Yii::$app->storage;
-            $comment->filename = $this->picture ? $storage->saveUploadedFile($this->picture) : null;
-            $comment->content = $this->content;
-            $comment->created_at = time();
+            if ($this->pictures) {
+                $this->commentPictures = $this->savePicturesToStorage($this->pictures, $this->content);
+                if ($this->commentPictures) {
+                    $comment->filename = Comment::HAS_PICTURES;
+                }
+            }
+                        
+            $comment->content = $this->prepareContent($this->content, $this->commentPictures);
+            $comment->created_at = time()+10800;    //+3 hours
             $comment->parent_id = $this->parent_id;
             $comment->post->comments_count++;
-            $this->comment = $comment;
             
-            return Yii::$app->getDb()->transaction(function($db) use ($comment) {
-                if ($comment->save(false) && $comment->post->save(false, ['comments_count'])) {
-                    return true;
-                }
-                return false;
-            });
+            return $this->saveComment($comment);
         }
         return false;
     }
@@ -128,9 +138,89 @@ class CommentForm extends Model
      * Maximum size of the uploaded file
      * @return integer
      */
-    private function getMaxFileSize()
+    public function getMaxFileSize()
     {
         return Yii::$app->params['maxFileSize'];
     }
+    
+
+    /**
+     * 
+     * @param Comment $comment
+     * @return bool is saved successful
+     */
+    private function saveComment(Comment $comment) {
+        return Yii::$app->getDb()->transaction(function($db) use ($comment) {
+            if ($comment->save(false) && $comment->post->save(false, ['comments_count'])) {
+                $this->comment = $comment;
+                if ($this->commentPictures) {
+                    foreach ($this->commentPictures as $commentPicture) {
+                        $commentPicture->comment_id = $comment->id;
+                        $commentPicture->save(false);
+                    }
+                }
+                return true;
+            }
+            return false;
+        });
+    }
+
+    /**
+     * 
+     * @param \yii\web\UploadedFile[] $pictures uploaded files
+     * @param string $content comment content
+     * @return array array of ActiveRecord comment pictures
+     */
+    private function savePicturesToStorage($pictures, $content) {
+            /* @var $storage \frontend\components\Storage */
+            $storage = Yii::$app->storage;
+            
+            $commentPictures = [];
+            
+            $imgCount = preg_match_all('|<img[^>]*src="".*>|U', $content);
+            foreach ($pictures as $picture) {
+                if (!$imgCount) { return $commentPictures; }
+                    $commentPicture = new CommentPicture();
+                    $commentPicture->filename = $storage->saveUploadedFile($picture);
+                    $commentPictures[] = $commentPicture;
+                    $imgCount--;
+            }
+            return $commentPictures;
+    }
+    
+    /**
+     * Puts <img src=""> with saved images in content
+     * 
+     * @param string comment $content
+     * @param \frontend\models\CommentPicture[] $commentPictures
+     * @return string processed comment content
+     */
+    private function prepareContent($content, $commentPictures) {
+        $content = $this->deleteEmptyDivs($content);
+        
+        if ($commentPictures) {
+            $imgPlaceHolder = '{{img}}';
+            $content = preg_replace('|<img[^>]*src="".*>|U', $imgPlaceHolder, $content);
+            foreach ($commentPictures as $commentPicture) {
+                $file = Yii::$app->storage->getFile($commentPicture->filename);
+                $img = '<img src="'.$file.'" alt="Comment picture">';
+                $content = $this->str_replace_once($imgPlaceHolder, $img, $content);
+            }
+        }
+        return $content;
+    }
+    
+    
+    private static function str_replace_once($search, $replace, $text) 
+    { 
+       $pos = strpos($text, $search);
+       return $pos!==false ? substr_replace($text, $replace, $pos, strlen($search)) : $text; 
+    }
+    
+    private function deleteEmptyDivs($content){
+        $content = preg_replace('|<div></div>|U', '', $content);
+        return $content;
+    }
+        
 }
 

@@ -121,10 +121,6 @@
     margin-right: 10px;
 }
 
-/*.info-block .info-date {
-    font-size: 12px;
-}*/
-
 .info-block .info-block-right {
     float: right;
 }
@@ -142,19 +138,7 @@
     max-height: 200px;
 }
 
-.post-form .load-picture-btn {
-    /*display: inline;*/
-/*    position: absolute;
-    z-index: 2;*/
-
-}
-
-.post-form .field-postform-picture {
-/*    overflow: hidden; 
-    opacity: 0; 
-    width: 100px; 
-    height: 30px; 
-    margin-bottom: 2px;*/
+.post-form .picture-input {
     display: none;
 }
 
@@ -175,34 +159,27 @@
     margin-bottom: 40px;
 }
 
-.comment-form [contentEditable=true]:empty:not(:focus):before{
+/*.comment-form [contentEditable=true]:empty:not(:focus):before{
+    content:attr(data-placeholder);
+}*/
+
+.comment-form .comment-form__content:empty:not(:focus):before{
     content:attr(data-placeholder);
 }
 
-.comment-form .field-commentform-picture {
+.comment-form .comment-form__content img{
+    display: block;
+    max-width: 300px;
+    max-height: 200px;
+    overflow: hidden;
+    margin-right: 5px;
+}
+
+.comment-form .picture-input {
     display: none;
 }
 
-.comment-form .thumb {
-    height: 75px;
-    margin: 5px 5px 5px 5px;
-}
-
-.comment-form .thumb-list {
-    display: inline;
-}
-
-/*.comment-form [contentEditable=true]:empty:before {
-  content:attr(data-placeholder);
-  color:gray
-}*/
-
-.comment-form .comment-form__send-btn {
-    /*margin-bottom: 5px;*/
-    /*display: inline;*/
-}
-
-.comment-form .comment-form__text-content {
+.comment-form .comment-form__content {
     width: 100%;
     min-height: 60px;
     height: 100%;
@@ -215,12 +192,6 @@
     color: red;
 }
 
-.comment-form img {
-    max-width: 300px;
-    max-height: 200px;
-    overflow: hidden;
-}
-
 .comment {
     margin-bottom: 30px;
 }
@@ -230,28 +201,13 @@
     text-decoration: none;
 }
 
-.comment .comment-content,
-.comment .comment-image{
+.comment .comment-content {
     margin: 0px 0px 0px 14px;
 }
 
-.comment .comment-image img{
+.comment-content img {
     max-width: 300px;
     max-height: 200px;
     overflow: hidden;
+    display: block;
 }
-
-/*.comment .comment-reply {
-    margin-left: 5px;
-    font-size: 13px;
-}*/
-
-/*.comment .info-block {
-    font-size: 13px;
-}*/
-
-/*.comment .comment-reply {
-    color: #000;
-    text-decoration: none;
-    margin-bottom: 10px;
-}*/

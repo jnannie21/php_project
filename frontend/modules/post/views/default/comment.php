@@ -5,7 +5,6 @@
 
 use yii\helpers\Url;
 use yii\helpers\Html;
-use yii\helpers\HtmlPurifier;
 ?>
 
 <div class="comment">
@@ -50,13 +49,7 @@ use yii\helpers\HtmlPurifier;
         </div>
     </div>
 
-    <?php if ($comment->filename): ?>
-    <div class="comment-image">
-        <img src="<?php echo $comment->getImage(); ?>" alt="" />
-    </div>
-    <?php endif; ?>
-
     <div class="comment-content">
-        <?php echo HtmlPurifier::process($comment->content); ?>
+        <?php echo $comment->content; ?>
     </div>
 </div>
