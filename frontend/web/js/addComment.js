@@ -39,9 +39,39 @@ $(function () {
     };
     
     
+    function checkFiles(){
+        var formData = F.getFormData();
+        var count = F.getCount();
+        var match = false;
+            var file;
+            var f;
+            for(var i = 0; i < count; i++) {
+                file = formData.get('CommentForm[pictures]['+i+']');
+                $('#comment-form').find('#comment-form__content').find('img').each(function(i, elem){
+                    if (file.name === elem.getAttribute('title')){
+                        match = true;
+                    };
+                });
+                if (match === false){
+                    formData.delete('CommentForm[pictures]['+i+']');
+                        for(var n = i; n < count; n++) {
+                            f = formData.get('CommentForm[pictures]['+(n+1)+']');
+                            if (f){
+                                formData.append('CommentForm[pictures]['+n+']', f);
+                            }
+                        }
+                    F.setCount(F.getCount()-1);
+                }
+                match = false;
+            }
+    };
+    
+    
     $('.comment-form .comment-form__send-btn').click(function (event) {
 
         event.preventDefault();
+        
+        checkFiles();
         
         var form = $('#comment-form');
         var content = form.find('#comment-form__content');
@@ -56,9 +86,8 @@ $(function () {
         
         formData.append('CommentForm[post_id]', form.attr('data-post-id'));
         formData.append('CommentForm[parent_id]', form.attr('data-parent-id'));
-        formData.append('CommentForm[content]', content.html());
-        
-        
+        formData.append('CommentForm[content]', content.html());            
+            
         $.ajax({
             type: 'POST', // тип запроса
             url: '/post/default/add-comment', // куда будем отправлять, можно явно указать
@@ -100,13 +129,15 @@ $(function () {
         $('#commentform-picture').wrap('<form>').closest('form').get(0).reset();
         $('#commentform-picture').unwrap();
         F.setNewFormData();
-        return 0;
+//        return 0;
     });
         
     
     $('#commentform-picture').on('change',(function(){
                 
         return function() {
+            checkFiles();
+
             var count = F.getCount();
             var formData = F.getFormData();
             var files = this.files;
@@ -115,8 +146,9 @@ $(function () {
               var maxFileSize = commentForm.attr('data-maxfilesize');
 
             for(var i=0; i<files.length; i++){
-                if (files[i].size > maxFileSize) {
-                    continue;
+                if (files[i].size > maxFileSize || !files[i].type.match('image.*')) {
+                  evt.stopImmediatePropagation();
+                  return false;
                 }
                 formData.append('CommentForm[pictures]['+count+']', files[i]);
                 F.setCount(++count);

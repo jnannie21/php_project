@@ -12,7 +12,7 @@ $this->title = 'Post';
 
 <div class="right-row">
     <div class="right-field-posts">
-        It's a right-row column.
+        It's a right column.
     </div>
     <div class="right-field-posts">
         Here will be something very important.
@@ -69,7 +69,7 @@ $this->title = 'Post';
 $this->registerJsFile('@web/js/likes.js', [
     'depends' => JqueryAsset::className(),
 ]);
-$this->registerJsFile('@web/js/commentFormThumbnails.js', [
+$this->registerJsFile('@web/js/commentFormThumbnails_1.js', [
     'depends' => JqueryAsset::className(),
 ]);
 $this->registerJsFile('@web/js/addComment.js', [

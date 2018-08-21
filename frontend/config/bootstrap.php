@@ -1,5 +1,34 @@
 <?php
 
+//function func(){
+//    return 13;
+//}
+//
+//var_dump(func() || 46);
+//
+//die;
+
+
+//$arr = [1,2,3];
+//
+//foreach($arr as $i){
+//    echo '<br>'.$i.'<br>';
+//}
+//
+//echo '<br>'.$i;
+//die;
+
+
+//function func($v){
+//    echo 'hello';
+//}
+//
+//
+//func(13);
+//
+//die;
+
+
 
 //namespace asd;
 //

@@ -19,6 +19,12 @@
                 textRange.select();
             }
         }
+        
+        
+//        function sleep(ms) {
+//        ms += new Date().getTime();
+//        while (new Date() < ms){}
+//        } 
       
       
         function handleFileSelect(evt) {
@@ -30,7 +36,6 @@
               if (!f.type.match('image.*')) {
                 continue;
               }
-              
               var commentForm = document.querySelector('#comment-form.active');
               var maxFileSize = commentForm.getAttribute('data-maxfilesize');
               if (f.size > maxFileSize) {
@@ -41,7 +46,7 @@
               }
               
               var reader = new FileReader();
-              reader.onload = (function(theFile) {
+              reader.onloadend = (function(theFile) {
                 return function(e) {
                   // Render thumbnail.
                   var img = document.createElement('img');
@@ -60,6 +65,8 @@
                 };
               })(f);
               reader.readAsDataURL(f);
+              
+//              while(reader.readyState != 2){sleep(1000); console.log(reader.readyState);}
             }
           }
 }, false);

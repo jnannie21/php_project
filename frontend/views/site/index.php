@@ -14,7 +14,7 @@ $this->title = 'Newsfeed';
 <div class="page-posts">
     <div class="right-row-posts">
         <div class="right-field-posts">
-            It's a right-row column.
+            It's a right column.
         </div>
         <div class="right-field-posts">
             Here will be something very important.

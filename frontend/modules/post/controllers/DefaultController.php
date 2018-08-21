@@ -53,7 +53,7 @@ class DefaultController extends Controller
     {
         /* @var $currentUser \frontend\models\User */
         $currentUser = Yii::$app->user->identity;
-        
+
         $model = new CommentForm();
         $post = Post::findOne($id);
         
